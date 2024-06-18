@@ -29,17 +29,13 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myBackGroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'HACK PUE',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: myTitleColor
+          title: Text(
+            'HACK PUE',
+            style: TextStyle(fontWeight: FontWeight.bold, color: deepPurple),
           ),
-        ),
-        backgroundColor: appBarBackgorundColor
-      ),
+          backgroundColor: Colors.white),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -108,7 +104,7 @@ class MainPage extends StatelessWidget {
                   enlargeCenterPage: true,
                   autoPlay: true,
                   autoPlayInterval: const Duration(seconds: 3),
-                  aspectRatio: 16/9,
+                  aspectRatio: 16 / 9,
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enableInfiniteScroll: true,
                   viewportFraction: 0.8,
@@ -126,12 +122,13 @@ class MainPage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 28, 48, 225), // Fondo del botón
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  backgroundColor: yellow, // Fondo del botón
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  textStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber),
                 ),
                 child: const Text('Let us know you'),
               ),
@@ -175,7 +172,7 @@ class UploadFileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Subir un Archivo'),
-        backgroundColor: const Color.fromARGB(255, 45, 36, 63),
+        backgroundColor: lavender,
       ),
       body: const Center(
         child: Text(
@@ -196,7 +193,7 @@ class RecordAudioScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Grabar Audio'),
-        backgroundColor: const Color.fromARGB(255, 45, 36, 63),
+        backgroundColor: lavender,
       ),
       body: const Center(
         child: Text(
