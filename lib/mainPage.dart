@@ -4,24 +4,6 @@ import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart'; // Asegúrate de tener este archivo
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HACK PUE',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MainPage(),
-    );
-  }
-}
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

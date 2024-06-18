@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123181741849",
+    "project_id": "hackpue-6422a",
+    "storage_bucket": "hackpue-6422a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123181741849:android:c405fc25895a9ec3127788",
+        "android_client_info": {
+          "package_name": "com.example.hackpue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOztTdtzliMbmE7lk8cDTaV4JZdbA-EL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
