@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/constants.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class quizResultPage extends StatelessWidget {
   final String result;
@@ -63,7 +65,9 @@ class quizResultPage extends StatelessWidget {
                   Text(
                     title(),
                     style: TextStyle(fontSize: 30),
-                  ),
+                  )
+                      .animate(delay: Duration(milliseconds: 300))
+                      .flip(duration: Duration(milliseconds: 200)),
                   SizedBox(
                     height: 20,
                   ),
@@ -75,6 +79,29 @@ class quizResultPage extends StatelessWidget {
                     message(),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  IntrinsicWidth(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(lavender)),
+                                onPressed: () {},
+                                child: Text('¡Quiero mejorar!'))
+                            .animate(delay: Duration(seconds: 2))
+                            .shake(delay: Duration(seconds: 1))
+                            .shake(delay: Duration(milliseconds: 100)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(onPressed: () {}, child: Text('Volver'))
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
