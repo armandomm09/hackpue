@@ -91,7 +91,7 @@ class quizResultPage extends StatelessWidget {
                         ElevatedButton(
                           style: ButtonStyle(
                               backgroundColor:
-                                  WidgetStatePropertyAll(lavender)),
+                                  MaterialStatePropertyAll(lavender)),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -122,7 +122,7 @@ class quizResultPage extends StatelessWidget {
                           ),
                           style: ButtonStyle(
                               backgroundColor:
-                                  WidgetStatePropertyAll(happyOrange)),
+                                  MaterialStatePropertyAll(happyOrange)),
                         )
                       ],
                     ),

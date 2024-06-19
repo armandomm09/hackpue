@@ -159,7 +159,7 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         child: FloatingActionButton(
                           backgroundColor: isRecording ? happyOrange : pink,
                           onPressed:
-                              isRecording ? stopRecording : startRecording,
+                              isRecording ? () => stopRecording : () => startRecording,
                           child: showIconRecord(isRecording),
                         ),
                       ),
@@ -168,10 +168,14 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         glowColor: pink,
                         duration: const Duration(milliseconds: 2000),
                         repeat: true,
-                        child: FloatingActionButton(
-                          backgroundColor: isRecording ? happyOrange : pink,
+                        child: ElevatedButton.icon(
+                          
+                          label: Text(''),
+                          style: ButtonStyle(
+                            backgroundColor: isRecording ? MaterialStatePropertyAll(happyOrange) : MaterialStatePropertyAll(pink),
+                          ),
                           onPressed: startListeningRecording,
-                          child: showIconListen(isListening),
+                          icon: showIconListen(isListening),
                         ),
                       ),
                     ],
