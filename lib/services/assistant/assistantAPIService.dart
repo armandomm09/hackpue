@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackpue/models/gpt_message.dart';
 import 'package:hackpue/models/userInfo.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
 import 'package:hackpue/services/userInfo/UserInfoService.dart';
+import 'package:flutter_sound/public/flutter_sound_player.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 class AssistantAPIService {
 
@@ -115,5 +119,47 @@ class AssistantAPIService {
       return {"error": e.toString()};
     }
   }
+
+  static Future<void> textToSpeech(String mensaje, FlutterSoundPlayer _flutterSoundPlayer) async {
+  const apiKey =
+      'sk-proj-CCGa043OAmNNG4HgUFxET3BlbkFJ4WKsVsU1ZGM0B2nZ7v6d'; // Reemplaza con tu clave API
+  
+  final response = await http.post(
+    Uri.parse('https://api.openai.com/v1/audio/speech'), // Ajusta la URL a la correcta de la API de OpenAI TTS si es diferente
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${apiKey}',
+    },
+    body: jsonEncode({
+      'model': "tts-1",
+      'input': mensaje,
+      'voice': 'alloy', // Ajusta según sea necesario
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    // Guardar el archivo MP3 en el dispositivo
+    try {
+      final bytes = response.bodyBytes; // Obtener los bytes de la respuesta
+
+      // Obtener el directorio temporal
+      final directory = await getTemporaryDirectory();
+      final filePath = '${directory.path}/output.mp3'; // Ruta para guardar el archivo
+
+      // Guardar el archivo en la ruta especificada
+      final file = File(filePath);
+      await file.writeAsBytes(bytes);
+
+      // Reproducir el archivo MP3 guardado
+      await _flutterSoundPlayer.startPlayer(fromURI: filePath);
+    } catch (e) {
+      print('Error al guardar o reproducir el archivo MP3: $e');
+    }
+  } else {
+    print('Error en la solicitud: ${response.statusCode}');
+    print('Respuesta del servidor: ${response.body}');
+  }
+}
+
 
 }
