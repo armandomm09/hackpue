@@ -57,7 +57,7 @@ class introToApp extends StatelessWidget {
                   const SizedBox(height: 40),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(happyYellow)),
+                        backgroundColor: MaterialStatePropertyAll(happyYellow)),
                     onPressed: () {
                       // Navegar a la pantalla de formulario
                       Navigator.push(
