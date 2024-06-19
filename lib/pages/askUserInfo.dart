@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/components/appButton.dart';
+import 'package:hackpue/components/appDropdown.dart';
+import 'package:hackpue/components/appTextField.dart';
 import 'package:hackpue/constants.dart';
 
 class UserInfoFormScreen extends StatefulWidget {
@@ -9,7 +12,7 @@ class UserInfoFormScreen extends StatefulWidget {
 }
 
 class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
-  String _disability = 'Autismo'; // Valor predeterminado
+  String _disability = 'TA'; // Valor predeterminado
   String _hobbies = '';
   String _age = '';
   String _study = '';
@@ -18,136 +21,110 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundGlobal,
       appBar: AppBar(
         title: Text(
-          'Formulario de Información',
-          style: TextStyle(color: deepPurple, fontWeight: FontWeight.bold),
+          'Sobre mí',
+          style: TextStyle(color: defaultText),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: happyYellow,
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Text(
-                'Información Personal',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0)),
-              ),
-              const SizedBox(height: 20),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: 'Discapacidad',
-                  labelStyle:
-                      TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  filled: true,
-                  fillColor: formInputBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+      body: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '¡Sólo hacen falta unos cuantos datos',
+                  style: TextStyle(fontSize: 15, color: defaultText),
+                ),
+                Text(
+                  'datos para empezar a aprender!',
+                  style: TextStyle(fontSize: 15, color: defaultText),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                appDropdown(
+                    defaultValue: _disability,
+                    list: ['ADHD', 'Dislexia', 'TA']),
+                const SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Hobbies',
+                    labelStyle: TextStyle(color: deepPurple),
+                    filled: true,
+                    fillColor: formInputBackgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  onSaved: (newValue) {
+                    _hobbies = newValue!;
+                  },
+                  style: TextStyle(color: deepPurple),
                 ),
-                value: _disability,
-                items:
-                    <String>['Autismo', 'ADHD', 'Dislexia'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    _disability = newValue!;
-                  });
-                },
-                style: const TextStyle(color: Colors.white),
-                dropdownColor: const Color.fromARGB(255, 87, 85, 128),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Hobbies',
-                  labelStyle:
-                      TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  filled: true,
-                  fillColor: formInputBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Edad',
+                    labelStyle: TextStyle(color: deepPurple),
+                    filled: true,
+                    fillColor: formInputBackgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  keyboardType: TextInputType.number,
+                  onSaved: (newValue) {
+                    _age = newValue!;
+                  },
+                  style: TextStyle(color: deepPurple),
                 ),
-                onSaved: (newValue) {
-                  _hobbies = newValue!;
-                },
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Edad',
-                  labelStyle:
-                      TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  filled: true,
-                  fillColor: formInputBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Qué estudias',
+                    labelStyle: TextStyle(color: deepPurple),
+                    filled: true,
+                    fillColor: formInputBackgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  onSaved: (newValue) {
+                    _study = newValue!;
+                  },
+                  style: const TextStyle(color: Colors.white),
                 ),
-                keyboardType: TextInputType.number,
-                onSaved: (newValue) {
-                  _age = newValue!;
-                },
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Qué estudias',
-                  labelStyle:
-                      TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  filled: true,
-                  fillColor: formInputBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Temas de Interés',
+                    labelStyle: TextStyle(color: deepPurple),
+                    filled: true,
+                    fillColor: formInputBackgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  onSaved: (newValue) {
+                    _interests = newValue!;
+                  },
+                  style: const TextStyle(color: Colors.white),
                 ),
-                onSaved: (newValue) {
-                  _study = newValue!;
-                },
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Temas de Interés',
-                  labelStyle:
-                      TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  filled: true,
-                  fillColor: formInputBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onSaved: (newValue) {
-                  _interests = newValue!;
-                },
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 28, 48, 225),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  textStyle: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                child: const Text('Guardar'),
-              ),
-            ],
-          )),
+                const SizedBox(height: 30),
+                AppButton(text: 'Guardar')
+              ],
+            )),
+      ),
     );
+  }
+
+  void onSaved(String myValue, String newValue) {
+    setState(() {
+      myValue = newValue!;
+    });
   }
 }
