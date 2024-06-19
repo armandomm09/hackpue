@@ -32,8 +32,8 @@ class StartingGradient extends StatelessWidget {
                 },
                 child: Icon(Icons.fingerprint),
                 style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.transparent),
-                    foregroundColor: WidgetStatePropertyAll(Colors.white)),
+                    backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                    foregroundColor: MaterialStatePropertyAll(Colors.white)),
               )
             ],
           ),

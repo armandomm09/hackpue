@@ -59,7 +59,7 @@ class DemoAppServices extends StatelessWidget {
                       MyCarouselDemo(
                         isDemo: true,
                         gradientColor: pink,
-                        title: 'Chatear con ChatGPT',
+                        title: 'Mosaic GPT',
                       ),
                       MyCarouselDemo(
                         isDemo: true,

@@ -47,7 +47,7 @@ class AppServices extends StatelessWidget {
                         icon: Icons.message,
                         isDemo: false,
                         gradientColor: happyOrange,
-                        title: 'Chatear con ChatGPT',
+                        title: 'Mosaic GPT',
                         onTap: () {
                           // Navegar a la pantalla de ChatGPT
                           Navigator.push(
