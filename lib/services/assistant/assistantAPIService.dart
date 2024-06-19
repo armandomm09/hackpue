@@ -24,7 +24,8 @@ class AssistantAPIService {
 
       print(response.statusCode);
       if (response.statusCode == 200) {
-        var info = jsonDecode(response.body);
+        var info = jsonDecode(utf8.decode(response.bodyBytes));
+        print(info.toString());
         var content = info['content'];
         for(var message in content){
           print(message['type']);
@@ -34,8 +35,42 @@ class AssistantAPIService {
             await AssistantAPIService.generateImage(message['description']);
           }
         }
+        var generatedQuiz = await generateQuiz(info);
+        print(generatedQuiz['questions'].toString());
         
         return info; // Devolver la respuesta decodificada
+      } else {
+        print("Failed to load events: ${response.statusCode}");
+        return {"error": "Failed to load events"};
+      }
+    } catch (e) {
+      print("Error fetching events: $e");
+      return {"error": e.toString()};
+    }
+  }
+
+  static generateQuiz(dynamic questionResponse) async {
+    print("fetching..");
+    var url = "http://live.galliard.mx/api/v1/generate_quizz";
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json", 
+        },
+        body: json.encode(questionResponse), 
+      );
+
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var info = jsonDecode(utf8.decode(response.bodyBytes));
+        var content = info['content'];
+
+      
+        await GPTService.saveThemeQuiz(info);
+        
+        return info; 
       } else {
         print("Failed to load events: ${response.statusCode}");
         return {"error": "Failed to load events"};

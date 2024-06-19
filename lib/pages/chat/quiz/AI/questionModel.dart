@@ -67,7 +67,7 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       questionNumber: json['question_number'],
-      questionText: json['question_text'],
+      questionText:  json['question_text'],
       options: Map<String, bool>.from(json['options']),
       answeredCorrectly: false,
     );

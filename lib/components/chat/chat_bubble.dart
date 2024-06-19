@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hackpue/components/chat/typing_indicator.dart';
 import 'package:hackpue/constants.dart';
 
@@ -7,9 +11,12 @@ class ChatBubble extends StatelessWidget {
   final bool isCurrentUser;
   const ChatBubble(
       {super.key, required this.message, required this.isCurrentUser});
-
   @override
   Widget build(BuildContext context) {
+
+    var newMessage = utf8.encode(message);
+
+
     var marginOnUser = isCurrentUser
         ? const EdgeInsets.only(right: 20, top: 5, bottom: 5, left: 75)
         : const EdgeInsets.only(right: 20, top: 5, bottom: 5, left: 20);
@@ -33,7 +40,7 @@ class ChatBubble extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         margin: marginOnUser,
         child: SelectableText(
-          message,
+          utf8.decode(newMessage),
           style: TextStyle(color: defaultText),
         ),
       );

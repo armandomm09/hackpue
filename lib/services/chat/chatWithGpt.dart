@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 enum PostState { successful, isDuplicated, serverError, clientError }
 
 class GPTService {
+  
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final String currentUserID = auth.currentUser!.uid;
@@ -34,6 +35,42 @@ class GPTService {
     } catch (e) {
       print('Error att $e');
       return PostState.serverError;
+    }
+  }
+
+  static saveThemeQuiz(dynamic quiz) async {
+    try {
+      await firestore
+          .collection('Users')
+          .doc(currentUserEmail)
+          .collection('gptChat')
+          .doc('Quiz')
+          .set(quiz);
+      print('Sent succesfull');
+
+      //newGPTAnswer(question);
+      return PostState.successful;
+    } catch (e) {
+      print('Error att $e');
+      return PostState.serverError;
+    }
+  }
+
+  static getThemeQuiz() async {
+     try {
+      var info = await firestore
+          .collection('Users')
+          .doc(currentUserEmail)
+          .collection('gptChat')
+          .doc('Quiz')
+          .get();
+      print('Sent succesfull');
+
+      //newGPTAnswer(question);
+      return info;
+    } catch (e) {
+      print('Error att $e');
+      return 'Error';
     }
   }
 
