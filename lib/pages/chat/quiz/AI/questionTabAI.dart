@@ -1,13 +1,19 @@
-// question_tab.dart
 import 'package:flutter/material.dart';
-// Import the model classes
 import 'package:hackpue/components/appButton.dart'; // Adjust the import as needed
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/chat/quiz/AI/questionModel.dart'; // Adjust the import as needed
 
 class QuestionTab extends StatefulWidget {
   final Question question;
-  const QuestionTab({super.key, required this.question});
+  final Function(bool) onAnswered;
+  final bool? isCorrect;
+
+  const QuestionTab({
+    Key? key,
+    required this.question,
+    required this.onAnswered,
+    this.isCorrect,
+  }) : super(key: key);
 
   @override
   State<QuestionTab> createState() => _QuestionTabState();
@@ -15,6 +21,14 @@ class QuestionTab extends StatefulWidget {
 
 class _QuestionTabState extends State<QuestionTab> {
   String? currentOption;
+  bool? isCorrect;
+
+  void _checkAnswer() {
+    setState(() {
+      isCorrect = widget.question.options[currentOption] ?? false;
+      widget.onAnswered(isCorrect ?? false);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +48,14 @@ class _QuestionTabState extends State<QuestionTab> {
               ),
               SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20), // Adjust the padding for better fit
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: widget.question.options.keys.map((option) {
+                    bool? optionCorrect = isCorrect != null
+                        ? widget.question.options[option]
+                        : null;
                     return ListTile(
                       title: Text(option),
                       leading: Radio<String>(
@@ -51,16 +67,22 @@ class _QuestionTabState extends State<QuestionTab> {
                           });
                         },
                       ),
+                      trailing: isCorrect != null
+                          ? Icon(
+                              optionCorrect == true ? Icons.check : Icons.close,
+                              color: optionCorrect == true
+                                  ? Colors.green
+                                  : Colors.red,
+                            )
+                          : null,
                     );
                   }).toList(),
                 ),
               ),
               SizedBox(height: 20),
               AppButton(
-                text: 'Send',
-                onPressed: () {
-                  // Handle send action
-                },
+                text: 'Check Answer',
+                onPressed: _checkAnswer,
               ),
             ],
           ),
