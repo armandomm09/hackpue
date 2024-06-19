@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/constants.dart';
 import 'package:hackpue/firebase_options.dart';
 import 'package:hackpue/pages/app_intro/mainPage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,5 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
