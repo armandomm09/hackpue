@@ -184,7 +184,7 @@ class RecordAudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Grabar Audio'),
+        title: const Text('Ask with voice'),
         backgroundColor: lavender,
       ),
       body: const Center(

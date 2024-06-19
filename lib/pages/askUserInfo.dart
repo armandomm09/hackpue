@@ -23,32 +23,31 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
   String _interests = '';
 
   uploadUserInfo() async {
-                  MyUserInfo userInfo = MyUserInfo(
-                      _disability, _hobbies, _age, _study, _interests);
+    MyUserInfo userInfo =
+        MyUserInfo(_disability, _hobbies, _age, _study, _interests);
 
-                  if (_disability.isNotEmpty &&
-                      _hobbies.isNotEmpty &&
-                      _age.isNotEmpty &&
-                      _study.isNotEmpty &&
-                      _interests.isNotEmpty) {
-                    
-                    if (kDebugMode) {
-                      print("\n \n FORMSSS: ");
-                      print("Disability $_disability");
-                      print("Hobbies $_hobbies");
-                      print("Age $_age");
-                      print("Study $_study");
-                      print("Interest $_interests");
-                    }
+    if (_disability.isNotEmpty &&
+        _hobbies.isNotEmpty &&
+        _age.isNotEmpty &&
+        _study.isNotEmpty &&
+        _interests.isNotEmpty) {
+      if (kDebugMode) {
+        print("\n \n FORMSSS: ");
+        print("Disability $_disability");
+        print("Hobbies $_hobbies");
+        print("Age $_age");
+        print("Study $_study");
+        print("Interest $_interests");
+      }
 
-                    PostState response = await UserInfoService.saveUserInfo(userInfo);
-                    _showMessage(response);
-                  } else {
-                    _showMessage(PostState.clientError);
-                  }
-                }
+      PostState response = await UserInfoService.saveUserInfo(userInfo);
+      _showMessage(response);
+    } else {
+      _showMessage(PostState.clientError);
+    }
+  }
 
-  void  _showMessage(PostState state) {
+  void _showMessage(PostState state) {
     final messenger = ScaffoldMessenger.of(context);
     final String title;
     final String message;
@@ -61,7 +60,7 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
       title = "U sure?";
       message = "The match is duplicated";
       contentType = ContentType.warning;
-    } else if(state == PostState.clientError){
+    } else if (state == PostState.clientError) {
       title = "Oopss";
       message = "Some fields are missing";
       contentType = ContentType.help;
@@ -185,9 +184,4 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
       ),
     );
   }
-
 }
-
-
-
-                

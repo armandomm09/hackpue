@@ -7,7 +7,7 @@ final Color appBarBackgorundColor = Color.fromARGB(255, 45, 36, 63);
 final Color myTitleColor = Color.fromARGB(255, 77, 6, 210);
 
 
-final Color backgroundGlobal = Colors.white;
+final Color backgroundGlobal = const Color.fromARGB(255, 255, 255, 255);
 final Color deepPurple = Color.fromARGB(255, 35, 4, 157);
 final Color lavender = Color.fromARGB(255, 170, 46, 230);
 final Color pink = Color.fromARGB(255, 255, 121, 205);
