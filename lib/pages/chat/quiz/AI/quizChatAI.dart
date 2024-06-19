@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/chat/quiz/AI/questionModel.dart';
@@ -17,7 +16,8 @@ class quizChat extends StatefulWidget {
 
 class _quizChatState extends State<quizChat> {
   late Quiz quiz = Quiz(questions: []); // Valor por defecto para quiz
-  late List<bool?> questionResults = []; // Valor por defecto para questionResults
+  late List<bool?> questionResults = [];
+  late int correctCount = 0; // Valor por defecto para questionResults
 
   @override
   void initState() {
@@ -30,9 +30,7 @@ class _quizChatState extends State<quizChat> {
     if (newQuiz != "Error") {
       print(newQuiz['questions']);
 
-      var quizToSolve = {
-        'questions': newQuiz['questions']
-      };
+      var quizToSolve = {'questions': newQuiz['questions']};
       setState(() {
         quiz = Quiz.fromJson(quizToSolve);
         questionResults = List.filled(quiz.questions.length, null);
@@ -43,7 +41,16 @@ class _quizChatState extends State<quizChat> {
   void _checkAnswer(int questionIndex, bool isCorrect) {
     setState(() {
       questionResults[questionIndex] = isCorrect;
+      if (isCorrect) {
+        setState(() {
+          correctCount += 1;
+        });
+      }
     });
+  }
+
+  int _correctCount() {
+    return correctCount;
   }
 
   @override
@@ -56,7 +63,8 @@ class _quizChatState extends State<quizChat> {
           backgroundColor: backgroundGlobal,
         ),
         body: Center(
-          child: CircularProgressIndicator(), // Mostrar un indicador de carga mientras se cargan los datos
+          child:
+              CircularProgressIndicator(), // Mostrar un indicador de carga mientras se cargan los datos
         ),
       );
     }
@@ -77,6 +85,7 @@ class _quizChatState extends State<quizChat> {
             bottom: TabBar(
               // Tab bar with tabs generated based on quiz questions
               indicatorColor: lavender,
+              tabAlignment: TabAlignment.center,
               tabs: List.generate(
                 quiz.questions.length,
                 (index) {
@@ -89,8 +98,8 @@ class _quizChatState extends State<quizChat> {
                     icon = Icons.sentiment_very_dissatisfied; // Sad face icon
                     iconColor = deepPurple;
                   } else {
-                    icon = Icons.question_answer; // Default icon
-                    iconColor = lavender;
+                    icon = Icons.question_mark; // Default icon
+                    iconColor = happyOrange;
                   }
                   return Tab(
                     icon: Icon(
@@ -106,6 +115,8 @@ class _quizChatState extends State<quizChat> {
             // Tab bar view to display each question in a separate tab
             children: quiz.questions.map((question) {
               return QuestionTab(
+                correctCount: _correctCount(),
+                currentIndex: quiz.questions.indexOf(question),
                 question: question,
                 onAnswered: (isCorrect) => _checkAnswer(
                   quiz.questions.indexOf(question),
