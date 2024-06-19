@@ -3,6 +3,7 @@ import 'package:hackpue/constants.dart';
 import 'package:hackpue/firebase_options.dart';
 import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hackpue/pages/app_intro/starting.dart';
 import 'package:hackpue/pages/app_intro/welcome.dart';
 
 Future<void> main() async {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: deepPurple),
           useMaterial3: true,
           fontFamily: 'Inter'),
-      home: const introToApp(),
+      home: const startingGradient(),
     );
   }
 }
