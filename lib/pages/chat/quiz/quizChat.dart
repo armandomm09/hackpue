@@ -22,45 +22,56 @@ class _quizChatState extends State<quizChat> {
                 style: TextStyle(fontSize: 20),
               ),
               backgroundColor: backgroundGlobal,
-              bottom: TabBar(tabAlignment: TabAlignment.center, tabs: [
-                Tab(
-                  icon: Icon(
-                    Icons.question_mark,
-                    color: lavender,
-                  ),
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.question_mark,
-                    color: lavender,
-                  ),
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.question_mark,
-                    color: lavender,
-                  ),
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.question_mark,
-                    color: lavender,
-                  ),
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.question_mark,
-                    color: lavender,
-                  ),
-                ),
-              ]),
+              bottom: TabBar(
+                  dividerHeight: 3,
+                  dividerColor: Colors.grey[40],
+                  indicatorColor: lavender,
+                  tabAlignment: TabAlignment.center,
+                  tabs: [
+                    Tab(
+                      icon: Icon(
+                        Icons.question_mark,
+                        color: lavender,
+                      ),
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.question_mark,
+                        color: lavender,
+                      ),
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.question_mark,
+                        color: lavender,
+                      ),
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.question_mark,
+                        color: lavender,
+                      ),
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.question_mark,
+                        color: lavender,
+                      ),
+                    ),
+                  ]),
             ),
             body: TabBarView(children: [
-              questionTab(),
-              questionTab(),
-              questionTab(),
-              questionTab(),
-              questionTab()
+              questionTab(
+                index: 0,
+              ),
+              questionTab(index: 1),
+              questionTab(index: 2),
+              questionTab(
+                index: 3,
+              ),
+              questionTab(
+                index: 4,
+              )
             ]),
           )),
     );

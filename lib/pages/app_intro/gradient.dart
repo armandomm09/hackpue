@@ -22,7 +22,6 @@ class StartingGradient extends StatelessWidget {
               Icon(
                 Icons.web,
                 color: backgroundGlobal,
-                size: 50,
               ),
               Center(
                 child: Text(
