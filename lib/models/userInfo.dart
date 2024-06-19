@@ -16,4 +16,6 @@ class MyUserInfo {
       "interests": interests
     };
   }
+
+  
 }

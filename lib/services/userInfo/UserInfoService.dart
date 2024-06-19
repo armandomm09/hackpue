@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hackpue/models/userInfo.dart';
@@ -58,7 +59,6 @@ class UserInfoService {
 
       if (response.exists) {
         String infoKey = UserInfoService().userSpecificInfoToString(infoToGet);
-        print(response[infoKey]);
         return response[infoKey];
       } else {
         print('Document does not exist');
@@ -67,6 +67,24 @@ class UserInfoService {
     } catch (e) {
       print('Error at $e');
       return 'Error at e';
+    }
+  }
+
+  static Future<MyUserInfo> getAllInfo() async {
+    try {
+      
+        MyUserInfo userInfo = MyUserInfo(
+          await UserInfoService.getSpecificInfo(UserSpecificInfo.Disability), 
+          await UserInfoService.getSpecificInfo(UserSpecificInfo.Hobbies),  
+          await UserInfoService.getSpecificInfo(UserSpecificInfo.Age), 
+          await UserInfoService.getSpecificInfo(UserSpecificInfo.Studies), 
+          await UserInfoService.getSpecificInfo(UserSpecificInfo.Interests), 
+          );
+        return userInfo;
+     
+    } catch (e) {
+      print('Error atA $e');
+      return MyUserInfo('n/a', 'n/a', 'n/a', 'n/a', 'n/a');
     }
   }
 }
