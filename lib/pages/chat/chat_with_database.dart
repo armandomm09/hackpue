@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hackpue/components/appTextField.dart';
 import 'package:hackpue/components/chat/chat_bubble.dart';
 import 'package:hackpue/constants.dart';
+import 'package:hackpue/pages/chat/quiz/AI/quizChatAI.dart';
 import 'package:hackpue/pages/chat/quiz/quizChat.dart';
 import 'package:hackpue/services/auth/auth_service.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
@@ -137,7 +138,7 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
           IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => quizChat()));
+                    MaterialPageRoute(builder: (context) => quizChatAI()));
               },
               icon: Icon(Icons.question_mark_outlined))
         ],
