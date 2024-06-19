@@ -98,7 +98,7 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                 Image(
                   fit: BoxFit.fill,
                   height: 100,
-                  image: AssetImage('assets/images/fondoblancocorto.jpeg'),
+                  image: AssetImage('assets/images/fondoblanco.png'),
                 ),
                 Text(
                   '¡Sólo hacen falta unos cuantos datos',
