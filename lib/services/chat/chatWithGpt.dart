@@ -9,7 +9,6 @@ import 'package:uuid/uuid.dart';
 enum PostState { successful, isDuplicated, serverError, clientError }
 
 class GPTService {
-  
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final String currentUserID = auth.currentUser!.uid;
@@ -57,7 +56,7 @@ class GPTService {
   }
 
   static getThemeQuiz() async {
-     try {
+    try {
       var info = await firestore
           .collection('Users')
           .doc(currentUserEmail)
@@ -75,9 +74,14 @@ class GPTService {
   }
 
   static saveGPTResponse(String answer) async {
-    final GptMessage message = GptMessage('chachoGPT', 'chachoGPT@chachitos.com',
-        answer, Timestamp.now(), const Uuid().v1(), MyUserInfo('disabilty', 'hobbies', 'edad', 'study', 'interests'));
-    
+    final GptMessage message = GptMessage(
+        'chachoGPT',
+        'chachoGPT@chachitos.com',
+        answer,
+        Timestamp.now(),
+        const Uuid().v1(),
+        MyUserInfo('disabilty', 'hobbies', 'edad', 'study', 'interests'));
+
     try {
       await firestore
           .collection('Users')
@@ -94,7 +98,6 @@ class GPTService {
     }
   }
 
-  
   static Stream<QuerySnapshot> getMessages() {
     return firestore
         .collection("Users")

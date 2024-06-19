@@ -26,7 +26,6 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   Widget imageOverlayer = Container();
 
   initData() async {
-    print(widget.initialQuestion!);
     if(widget.initialQuestion != null){
         await GPTService.newGptMessage(widget.initialQuestion!);
     }
