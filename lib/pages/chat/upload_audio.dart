@@ -156,10 +156,17 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         glowColor: pink,
                         duration: const Duration(milliseconds: 2000),
                         repeat: true,
-                        child: FloatingActionButton(
-                          backgroundColor: isRecording ? happyOrange : pink,
-                          onPressed:
-                              isRecording ? () => stopRecording : () => startRecording,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              padding:
+                                  WidgetStatePropertyAll(EdgeInsets.all(10)),
+                              fixedSize: WidgetStatePropertyAll(Size(60, 60)),
+                              backgroundColor: isRecording
+                                  ? WidgetStatePropertyAll(happyOrange)
+                                  : WidgetStatePropertyAll(pink)),
+                          onPressed: isRecording
+                              ? () => stopRecording
+                              : () => startRecording,
                           child: showIconRecord(isRecording),
                         ),
                       ),
@@ -168,14 +175,16 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         glowColor: pink,
                         duration: const Duration(milliseconds: 2000),
                         repeat: true,
-                        child: ElevatedButton.icon(
-                          
-                          label: Text(''),
+                        child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: isRecording ? MaterialStatePropertyAll(happyOrange) : MaterialStatePropertyAll(pink),
+                            padding: WidgetStatePropertyAll(EdgeInsets.all(10)),
+                            fixedSize: WidgetStatePropertyAll(Size(60, 60)),
+                            backgroundColor: isRecording
+                                ? WidgetStatePropertyAll(happyOrange)
+                                : WidgetStatePropertyAll(pink),
                           ),
                           onPressed: startListeningRecording,
-                          icon: showIconListen(isListening),
+                          child: showIconListen(isListening),
                         ),
                       ),
                     ],

@@ -14,12 +14,6 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          title: Text(
-            'HACK PUE',
-            style: TextStyle(fontWeight: FontWeight.bold, color: deepPurple),
-          ),
-          backgroundColor: Colors.deepPurple),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Center(
@@ -56,14 +50,17 @@ class MainPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 40),
-                  AppButton(text: 'text', onPressed: () {
-                    Navigator.push(
+                  AppButton(
+                    text: 'Siguiente',
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const AppServices(),
                         ),
                       );
-                  },),
+                    },
+                  ),
                   const SizedBox(height: 30),
                   // Agregar más widgets aquí según sea necesario
                 ],

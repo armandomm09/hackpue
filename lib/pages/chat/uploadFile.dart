@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/upload_audio.dart';
@@ -53,7 +54,9 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
     request.files.add(await http.MultipartFile.fromPath(
       'file', // The name of the field in the form
       _selectedFile!.path,
-      filename: _selectedFile!.path.split('/').last, // Extracting filename from the path
+      filename: _selectedFile!.path
+          .split('/')
+          .last, // Extracting filename from the path
     ));
 
     try {
@@ -70,13 +73,12 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
         });
         print(uploadedFilePath);
         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatWithDatabase(),
-                            ),
-                          );
-      await GPTService.askViaPDF(uploadedFilePath!);
-        
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatWithDatabase(),
+          ),
+        );
+        await GPTService.askViaPDF(uploadedFilePath!);
       } else {
         setState(() {
           _uploadStatus = 'Upload failed: ${response.statusCode}';
@@ -107,8 +109,18 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(happyOrange),
+                    fixedSize: WidgetStatePropertyAll(Size(
+                      100,
+                      100,
+                    ))),
                 onPressed: _pickFile,
-                child: Text('Select PDF File'),
+                child: Icon(
+                  Icons.file_open_rounded,
+                  size: 50,
+                  color: happyYellow,
+                ),
               ),
               SizedBox(height: 20),
               if (_selectedFile != null)
@@ -118,8 +130,13 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
                 ),
               SizedBox(height: 20),
               ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(lavender)),
                 onPressed: _isUploading ? null : _uploadFile,
-                child: Text(_isUploading ? 'Uploading...' : 'Upload File'),
+                child: Text(
+                  _isUploading ? 'Uploading...' : 'Upload File',
+                  style: TextStyle(color: backgroundGlobal),
+                ),
               ),
               SizedBox(height: 20),
               if (_uploadStatus != null)
@@ -127,7 +144,9 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
                   _uploadStatus!,
                   style: TextStyle(
                     fontSize: 16,
-                    color: _uploadStatus!.contains('successfully') ? Colors.green : Colors.red,
+                    color: _uploadStatus!.contains('successfully')
+                        ? Colors.green
+                        : Colors.red,
                   ),
                 ),
             ],

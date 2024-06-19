@@ -19,10 +19,11 @@ class AppServices extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
           title: Text(
-            'HACK PUE',
-            style: TextStyle(fontWeight: FontWeight.bold, color: deepPurple),
+            'Mosaic',
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: backgroundGlobal),
           ),
-          backgroundColor: Colors.deepPurple),
+          backgroundColor: lavender),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Center(
@@ -37,17 +38,17 @@ class AppServices extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Conoce a tus nuevos aliados',
+                      '¡Conoce a tus nuevos aliados!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 24,
-                        color: deepPurple,
-                      ),
+                          fontSize: 24,
+                          color: deepPurple,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
 
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
 
                   Text(
