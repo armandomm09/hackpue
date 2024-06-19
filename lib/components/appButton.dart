@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(happyYellow)),
+      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(happyYellow)),
       onPressed: onPressed,
       child: Text(
         text,

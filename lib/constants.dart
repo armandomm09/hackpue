@@ -1,6 +1,12 @@
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+final Color myBackGroundColor = Color.fromARGB(255, 87, 85, 128);
+final Color appBarBackgorundColor = Color.fromARGB(255, 45, 36, 63);
+final Color myTitleColor = Color.fromARGB(255, 77, 6, 210);
+
 
 final Color backgroundGlobal = Colors.white;
 final Color deepPurple = Color.fromARGB(255, 35, 4, 157);

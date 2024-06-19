@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
+import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart'; // Asegúrate de tener este archivo
 
 class appServices extends StatelessWidget {
@@ -105,7 +106,7 @@ class appServices extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(happyYellow)),
+                        backgroundColor: MaterialStatePropertyAll(happyYellow)),
                     onPressed: () {
                       // Navegar a la pantalla de formulario
                       Navigator.push(

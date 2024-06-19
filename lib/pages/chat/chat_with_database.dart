@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackpue/components/appTextField.dart';
@@ -20,26 +21,27 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   final AuthService authService = AuthService();
 
   @override
-  void initState() {
+  void initState(){
     scrollDown();
     super.initState();
   }
 
   @override
-  void dispose() {
+  void dispose(){ 
     focusNode.dispose();
     messageController.dispose();
     scrollController.dispose();
     super.dispose();
   }
-
   scrollDown() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (scrollController.hasClients) {
-        scrollController.jumpTo(scrollController.position.maxScrollExtent);
-      }
-    });
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (scrollController.hasClients) {
+              scrollController.jumpTo(scrollController.position.maxScrollExtent);
+            }
+          });
   }
+
+  
 
   TextEditingController messageController = TextEditingController();
 
@@ -55,6 +57,7 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
               controller: messageController,
             ),
           ),
+          
           Container(
               decoration: const BoxDecoration(
                 color: Colors.green,
@@ -79,6 +82,7 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
 
   buildMessageList() {
     return StreamBuilder(
+        
         stream: GPTService.getMessages(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -121,19 +125,24 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundGlobal,
+      backgroundColor: myBackGroundColor,
       appBar: AppBar(
         backgroundColor:
-            backgroundGlobal, //Theme.of(context).colorScheme.primary,
+            appBarBackgorundColor, //Theme.of(context).colorScheme.primary,
         elevation: 50,
         foregroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          "Scout GPT",
-          style: TextStyle(color: deepPurple),
+           "Scout GPT",
+           style: TextStyle(color: myTitleColor),
         ),
       ),
       body: Column(
-          children: [Expanded(child: buildMessageList()), buildUserInput()]),
+        children: [
+          Expanded(
+            child: buildMessageList()), 
+            buildUserInput()
+            ]
+      ),
     );
   }
 }

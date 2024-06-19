@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/components/appDropdown.dart';
-import 'package:hackpue/components/appTextField.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/models/userInfo.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
@@ -17,7 +16,7 @@ class UserInfoFormScreen extends StatefulWidget {
 }
 
 class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
-  String _disability = 'TA'; // Valor predeterminado
+  String _disability = 'Seleccionar'; // Valor predeterminado
   String _hobbies = '';
   String _age = '';
   String _study = '';
@@ -110,7 +109,7 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                 ),
                 appDropdown(
                     defaultValue: _disability,
-                    list: ['ADHD', 'Dislexia', 'TA']),
+                    list: ['ADHD', 'Dislexia', 'TA', 'Seleccionar']),
                 const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
@@ -122,8 +121,8 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onSaved: (newValue) {
-                    _hobbies = newValue!;
+                  onChanged: (newValue) {
+                    _hobbies = newValue;
                   },
                   style: TextStyle(color: deepPurple),
                 ),
@@ -139,8 +138,8 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                     ),
                   ),
                   keyboardType: TextInputType.number,
-                  onSaved: (newValue) {
-                    _age = newValue!;
+                  onChanged: (newValue) {
+                    _age = newValue;
                   },
                   style: TextStyle(color: deepPurple),
                 ),
@@ -155,10 +154,10 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onSaved: (newValue) {
-                    _study = newValue!;
+                  onChanged: (newValue) {
+                    _study = newValue;
                   },
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: deepPurple),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -171,22 +170,21 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onSaved: (newValue) {
-                    _interests = newValue!;
+                  onChanged: (newValue) {
+                    _interests = newValue;
                   },
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: deepPurple),
                 ),
                 const SizedBox(height: 30),
-                AppButton(text: 'Guardar')
+                AppButton(
+                  text: 'Guardar',
+                  onPressed: () async {
+                    await uploadUserInfo();
+                  },
+                )
               ],
             )),
       ),
     );
-  }
-
-  void onSaved(String myValue, String newValue) {
-    setState(() {
-      myValue = newValue!;
-    });
   }
 }
