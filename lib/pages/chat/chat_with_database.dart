@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackpue/components/appTextField.dart';
@@ -20,6 +22,9 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   ScrollController scrollController = ScrollController();
 
   final AuthService authService = AuthService();
+
+  Widget imageOverlayer = Container();
+
 
   @override
   void initState() {
@@ -109,24 +114,101 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
         });
   }
 
+  setImageOverlay(String url) {
+    setState(() {
+      imageOverlayer = Stack(children: [
+        Positioned.fill(
+            child: GestureDetector(
+          onTap: () => removeOverlayer,
+          child: Container(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 0),
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+        )),
+        Center(
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: InteractiveViewer(
+                  child: Image.network(
+                    url,
+                    width: MediaQuery.of(context).size.width - 20,
+                  ),
+                ),
+              ),
+              Positioned(
+                  top: 0,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: removeOverlayer,
+                    icon: const Icon(Icons.remove),
+                    iconSize: 40,
+                    color: Colors.amber,
+                  ))
+            ],
+          ),
+        ),
+      ]);
+    });
+  }
+
+  removeOverlayer() {
+    print('REMOVING OVERLAYER');
+    setState(() {
+      imageOverlayer = Container();
+    });
+  }
+
   Widget buildMessageItem(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    try {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-    bool isCurrentUser = data["senderId"] == authService.getCurrentUser()!.uid;
+      bool isCurrentUser =
+          data["senderId"] == authService.getCurrentUser()!.uid;
 
-    var alignment =
-        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
+      var alignment =
+          isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
 
-    return Container(
-      alignment: alignment,
-      child: Column(
-        crossAxisAlignment:
-            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          ChatBubble(message: data["question"], isCurrentUser: isCurrentUser),
-        ],
-      ),
-    );
+      return Container(
+        alignment: alignment,
+        child: Column(
+          crossAxisAlignment:
+              isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            if (!data["question"].toString().contains(
+                'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar el mensaje si existe
+              ChatBubble(
+                  message: data["question"], isCurrentUser: isCurrentUser),
+            if (data["question"].toString().contains(
+                'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar la imagen si existe
+              GestureDetector(
+                onTap: () {
+                  print('SETTING OVERLAY');
+                  setImageOverlay(data['question']);
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(data['question'], height: 200)),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
+    } catch (e) {
+      return Container();
+    }
   }
 
   @override
@@ -152,8 +234,15 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-            children: [Expanded(child: buildMessageList()), buildUserInput()]),
+        child: Container(
+          child: Stack(
+            children: [
+                  Column(
+                  children: [Expanded(child: buildMessageList()), buildUserInput()]),
+                  imageOverlayer
+                ],
+          ),
+        ),
       ),
     );
   }
