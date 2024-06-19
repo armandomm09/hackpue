@@ -6,6 +6,7 @@ import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart';
+import 'package:hackpue/pages/chat/uploadFile.dart';
 import 'package:hackpue/pages/chat/upload_audio.dart';
 
 class AppServices extends StatelessWidget {
@@ -77,7 +78,7 @@ class AppServices extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const UploadFileScreen(),
+                              builder: (context) => AskGPTWithFile(),
                             ),
                           );
                         },
@@ -138,25 +139,6 @@ class AppServices extends StatelessWidget {
 }
 
 // Pantalla para Chatear con ChatGPT
-class ChatGPTScreen extends StatelessWidget {
-  const ChatGPTScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat con ChatGPT'),
-        backgroundColor: const Color.fromARGB(255, 45, 36, 63),
-      ),
-      body: const Center(
-        child: Text(
-          'Pantalla de ChatGPT aquí',
-          style: TextStyle(fontSize: 24, color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
 
 // Pantalla para Subir un Archivo
 class UploadFileScreen extends StatelessWidget {
