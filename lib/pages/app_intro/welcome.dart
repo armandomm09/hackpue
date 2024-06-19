@@ -60,10 +60,10 @@ class introToApp extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(happyYellow)),
                     onPressed: () {
                       // Navegar a la pantalla de formulario
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const appServices(),
+                          builder: (context) => const AppServices(),
                         ),
                       );
                     },

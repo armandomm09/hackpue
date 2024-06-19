@@ -9,10 +9,10 @@ class MyUserInfo {
 
   Map<String, dynamic> toJson(){
     return {
-      "disabilty": disabilty,
+      "disability": disabilty,
       "hobbies": hobbies,
-      "edad": edad,
-      "study": study,
+      "age": edad,
+      "studies": study,
       "interests": interests
     };
   }

@@ -109,7 +109,12 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                 ),
                 appDropdown(
                     defaultValue: _disability,
-                    list: ['ADHD', 'Dislexia', 'TA', 'Seleccionar']),
+                    list: ['ADHD', 'Dislexia', 'TA', 'Seleccionar'],
+                    onChanged: (p0) {
+                      setState(() {
+                        _disability = p0!;
+                      });
+                    },),
                 const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
