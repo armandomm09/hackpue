@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/app_intro/services.dart';
@@ -55,27 +56,15 @@ class MainPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 40),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(happyYellow)),
-                    onPressed: () {
-                      // Navegar a la pantalla de formulario
-                      Navigator.push(
+                  AppButton(text: 'text', onPressed: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const appServices(),
                         ),
                       );
-                    },
-                    child: Text(
-                      'Know more',
-                      style: TextStyle(
-                          color: lavender,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                  },),
+                  const SizedBox(height: 30),
                   // Agregar más widgets aquí según sea necesario
                 ],
               ),
