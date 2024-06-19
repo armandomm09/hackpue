@@ -37,10 +37,51 @@ class GPTService {
     }
   }
 
+  static saveThemeQuiz(dynamic quiz) async {
+    try {
+      await firestore
+          .collection('Users')
+          .doc(currentUserEmail)
+          .collection('gptChat')
+          .doc('Quiz')
+          .set(quiz);
+      print('Sent succesfull');
+
+      //newGPTAnswer(question);
+      return PostState.successful;
+    } catch (e) {
+      print('Error att $e');
+      return PostState.serverError;
+    }
+  }
+
+  static getThemeQuiz() async {
+    try {
+      var info = await firestore
+          .collection('Users')
+          .doc(currentUserEmail)
+          .collection('gptChat')
+          .doc('Quiz')
+          .get();
+      print('Sent succesfull');
+
+      //newGPTAnswer(question);
+      return info;
+    } catch (e) {
+      print('Error att $e');
+      return 'Error';
+    }
+  }
+
   static saveGPTResponse(String answer) async {
-    final GptMessage message = GptMessage('chachoGPT', 'chachoGPT@chachitos.com',
-        answer, Timestamp.now(), const Uuid().v1(), MyUserInfo('disabilty', 'hobbies', 'edad', 'study', 'interests'));
-    
+    final GptMessage message = GptMessage(
+        'chachoGPT',
+        'chachoGPT@chachitos.com',
+        answer,
+        Timestamp.now(),
+        const Uuid().v1(),
+        MyUserInfo('disabilty', 'hobbies', 'edad', 'study', 'interests'));
+
     try {
       await firestore
           .collection('Users')
@@ -57,7 +98,6 @@ class GPTService {
     }
   }
 
-  
   static Stream<QuerySnapshot> getMessages() {
     return firestore
         .collection("Users")
