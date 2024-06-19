@@ -18,6 +18,8 @@ class AuthService{
 
       return userCredential;
     } on FirebaseAuthException catch (e) {
+      print("Email:" + email);
+      print('Excecpciob nuymero: '+ e.code.toString());
       throw Exception(e.code);
     }
   }
@@ -38,6 +40,7 @@ class AuthService{
 
       
     } on FirebaseAuthException catch (e) {
+      print('Excecpciob nuymero: '+ e.code.toString());
       throw Exception(e.code);
     }
 
