@@ -1,11 +1,14 @@
 import 'dart:ui';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:hackpue/components/appTextField.dart';
 import 'package:hackpue/components/chat/chat_bubble.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/chat/quiz/AI/quizChatAI.dart';
+import 'package:hackpue/services/assistant/assistantAPIService.dart';
 import 'package:hackpue/services/auth/auth_service.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
 
@@ -18,6 +21,8 @@ class ChatWithDatabase extends StatefulWidget {
 }
 
 class _ChatWithDatabaseState extends State<ChatWithDatabase> {
+  final AudioPlayer audioPlayer = AudioPlayer();
+  final FlutterSoundPlayer _flutterSoundPlayer = FlutterSoundPlayer();  
   FocusNode focusNode = FocusNode();
   ScrollController scrollController = ScrollController();
 
@@ -35,6 +40,7 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
     scrollDown();
     super.initState();
     initData();
+    _flutterSoundPlayer.openPlayer();
   }
 
   @override
@@ -188,7 +194,10 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
             if (!data["question"].toString().contains(
                 'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar el mensaje si existe
               ChatBubble(
-                  message: data["question"], isCurrentUser: isCurrentUser),
+                  message: data["question"], isCurrentUser: isCurrentUser, onLongPress: () async {
+                    print('Message long pressed');
+                    AssistantAPIService.textToSpeech(data["question"], _flutterSoundPlayer);
+                  },),
             if (data["question"].toString().contains(
                 'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar la imagen si existe
               GestureDetector(

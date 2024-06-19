@@ -7,10 +7,11 @@ import 'package:hackpue/components/chat/typing_indicator.dart';
 import 'package:hackpue/constants.dart';
 
 class ChatBubble extends StatelessWidget {
+  final Function()? onLongPress;
   final String message;
   final bool isCurrentUser;
   const ChatBubble(
-      {super.key, required this.message, required this.isCurrentUser});
+      {super.key, required this.message, required this.isCurrentUser, this.onLongPress});
   @override
   Widget build(BuildContext context) {
     var newMessage = utf8.encode(message);
@@ -30,16 +31,19 @@ class ChatBubble extends StatelessWidget {
             ],
           ));
     } else {
-      return Container(
-        decoration: BoxDecoration(
-          color: isCurrentUser ? happyYellow : happyOrange,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.all(20),
-        margin: marginOnUser,
-        child: SelectableText(
-          utf8.decode(newMessage),
-          style: TextStyle(color: defaultText),
+      return GestureDetector(
+        onLongPress: onLongPress,
+        child: Container(
+          decoration: BoxDecoration(
+            color: isCurrentUser ? happyYellow : happyOrange,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.all(20),
+          margin: marginOnUser,
+          child: SelectableText(
+            utf8.decode(newMessage),
+            style: TextStyle(color: defaultText),
+          ),
         ),
       );
     }

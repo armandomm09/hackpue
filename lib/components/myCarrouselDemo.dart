@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hackpue/constants.dart';
+import 'package:hackpue/pages/chat/quiz/quizResult.dart';
 
-class MyCarouselItem extends StatelessWidget {
+class MyCarouselDemo extends StatelessWidget {
   final bool isDemo;
   final Color gradientColor;
   final String title;
   final VoidCallback? onTap;
-  const MyCarouselItem(
+  const MyCarouselDemo(
       {super.key,
       this.onTap,
       required this.title,
@@ -39,11 +41,15 @@ class MyCarouselItem extends StatelessWidget {
                   begin: Alignment.bottomLeft,
                   end: Alignment.topLeft)),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(title, style: returnTextStyle(isDemo)),
-            ),
-          ),
+              padding: const EdgeInsets.all(10.0),
+              child: Center(
+                  child: Text(title, style: returnTextStyle(isDemo))
+                      .animate()
+                      .fadeIn()
+                      .slideY(
+                          begin: 2,
+                          delay: Duration(seconds: 1),
+                          duration: Duration(seconds: 3)))),
         ),
       ),
     );

@@ -159,11 +159,11 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                               padding:
-                                  WidgetStatePropertyAll(EdgeInsets.all(10)),
-                              fixedSize: WidgetStatePropertyAll(Size(60, 60)),
+                                  MaterialStatePropertyAll(EdgeInsets.all(10)),
+                              fixedSize: MaterialStatePropertyAll(Size(60, 60)),
                               backgroundColor: isRecording
-                                  ? WidgetStatePropertyAll(happyOrange)
-                                  : WidgetStatePropertyAll(pink)),
+                                  ? MaterialStatePropertyAll(happyOrange)
+                                  : MaterialStatePropertyAll(pink)),
                           onPressed: isRecording
                               ? () => stopRecording
                               : () => startRecording,
@@ -177,11 +177,11 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                         repeat: true,
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            padding: WidgetStatePropertyAll(EdgeInsets.all(10)),
-                            fixedSize: WidgetStatePropertyAll(Size(60, 60)),
+                            padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
+                            fixedSize: MaterialStatePropertyAll(Size(60, 60)),
                             backgroundColor: isRecording
-                                ? WidgetStatePropertyAll(happyOrange)
-                                : WidgetStatePropertyAll(pink),
+                                ? MaterialStatePropertyAll(happyOrange)
+                                : MaterialStatePropertyAll(pink),
                           ),
                           onPressed: startListeningRecording,
                           child: showIconListen(isListening),

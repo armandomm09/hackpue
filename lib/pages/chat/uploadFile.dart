@@ -110,8 +110,8 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
             children: [
               ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(happyOrange),
-                    fixedSize: WidgetStatePropertyAll(Size(
+                    backgroundColor: MaterialStatePropertyAll(happyOrange),
+                    fixedSize: MaterialStatePropertyAll(Size(
                       100,
                       100,
                     ))),
@@ -131,7 +131,7 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
               SizedBox(height: 20),
               ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(lavender)),
+                    backgroundColor: MaterialStatePropertyAll(lavender)),
                 onPressed: _isUploading ? null : _uploadFile,
                 child: Text(
                   _isUploading ? 'Uploading...' : 'Upload File',

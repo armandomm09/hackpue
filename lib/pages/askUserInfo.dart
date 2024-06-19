@@ -5,6 +5,8 @@ import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/components/appDropdown.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/models/userInfo.dart';
+import 'package:hackpue/pages/app_intro/mainPage.dart';
+import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
 import 'package:hackpue/services/userInfo/UserInfoService.dart';
 
@@ -84,18 +86,20 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
     return Scaffold(
       backgroundColor: backgroundGlobal,
       appBar: AppBar(
-        title: Text(
-          'Sobre mí',
-          style: TextStyle(color: defaultText),
-        ),
-        backgroundColor: happyYellow,
+        foregroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Image(
+                  fit: BoxFit.fill,
+                  height: 100,
+                  image: AssetImage('assets/images/fondoblancocorto.jpeg'),
+                ),
                 Text(
                   '¡Sólo hacen falta unos cuantos datos',
                   style: TextStyle(fontSize: 15, color: defaultText),
@@ -105,7 +109,7 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                   style: TextStyle(fontSize: 15, color: defaultText),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
                 appDropdown(
                   width: 400,
@@ -186,11 +190,26 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                   style: TextStyle(color: deepPurple),
                 ),
                 const SizedBox(height: 30),
-                AppButton(
-                  text: 'Guardar',
-                  onPressed: () async {
-                    await uploadUserInfo();
-                  },
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    AppButton(
+                      text: 'Guardar',
+                      onPressed: () async {
+                        await uploadUserInfo();
+                      },
+                    ),
+                    AppButton(
+                      text: 'Continuar',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppServices()));
+                      },
+                    )
+                  ],
                 )
               ],
             )),

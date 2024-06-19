@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart';
+import 'package:hackpue/pages/chat/upload_audio.dart';
+import 'package:hackpue/pages/servicesDemoPage.dart';
 import 'package:hackpue/pages/user_sign/login_page.dart';
 import 'package:hackpue/services/auth/authgate.dart';
 
@@ -29,6 +31,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: lavender),
           useMaterial3: true,
         ),
-        home: AuthGate());
+        home: DemoAppServices());
   }
 }
