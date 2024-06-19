@@ -108,13 +108,18 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                   height: 20,
                 ),
                 appDropdown(
-                    defaultValue: _disability,
-                    list: ['ADHD', 'Dislexia', 'TA', 'Seleccionar'],
-                    onChanged: (p0) {
-                      setState(() {
-                        _disability = p0!;
-                      });
-                    },),
+                  width: 400,
+                  defaultValue: _disability,
+                  list: ['ADHD', 'Dislexia', 'TA', 'Seleccionar'],
+                  theme: 'Discapacidad',
+                  textColor: defaultText,
+                  dropdownColor: happyYellow,
+                  onChanged: (p0) {
+                    setState(() {
+                      _disability = p0!;
+                    });
+                  },
+                ),
                 const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
@@ -181,9 +186,12 @@ class _UserInfoFormScreenState extends State<UserInfoFormScreen> {
                   style: TextStyle(color: deepPurple),
                 ),
                 const SizedBox(height: 30),
-                AppButton(text: 'Guardar', onPressed: () async {
-                  await uploadUserInfo();
-                },)
+                AppButton(
+                  text: 'Guardar',
+                  onPressed: () async {
+                    await uploadUserInfo();
+                  },
+                )
               ],
             )),
       ),
