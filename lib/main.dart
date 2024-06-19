@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: deepPurple),
           useMaterial3: true,
           fontFamily: 'Inter'),
-      home: const introToApp(),
+      home: const startingGradient(),
     );
   }
 }
