@@ -11,6 +11,7 @@ import 'package:hackpue/pages/chat/quiz/AI/quizChatAI.dart';
 import 'package:hackpue/services/assistant/assistantAPIService.dart';
 import 'package:hackpue/services/auth/auth_service.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
+import 'package:hackpue/services/userInfo/UserInfoService.dart';
 
 class ChatWithDatabase extends StatefulWidget {
   final String? initialQuestion;
@@ -241,9 +242,14 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
         backgroundColor: deepPurple, //Theme.of(context).colorScheme.primary,
         elevation: 50,
         foregroundColor: pink,
-        title: Text(
-          "Chat with AI",
-          style: TextStyle(color: backgroundGlobal),
+        title: GestureDetector(
+          onLongPress: () async {
+            await UserInfoService.resetConversation();
+          },
+          child: Text(
+            "Chat with AI",
+            style: TextStyle(color: backgroundGlobal),
+          ),
         ),
       ),
       body: Padding(

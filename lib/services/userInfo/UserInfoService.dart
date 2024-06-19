@@ -31,6 +31,27 @@ class UserInfoService {
     }
   }
 
+  static Future<PostState> resetConversation() async {
+    try {
+      QuerySnapshot querySnapshot = await firestore
+      .collection('Users')
+      .doc(currentUserEmail)
+      .collection('gptChat')
+      .get();
+
+  // Iterate over each document and delete it
+  for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+    await firestore.collection('Users').doc(currentUserEmail).collection('gptChat').doc(doc.id).delete();
+  }
+      print('Sent succesfull');
+      //newGPTAnswer(question);
+      return PostState.successful;
+    } catch (e) {
+      print('Error at $e');
+      return PostState.serverError;
+    }
+  }
+
   String userSpecificInfoToString(UserSpecificInfo info) {
     switch (info) {
       case UserSpecificInfo.Disability:

@@ -165,8 +165,8 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
                                   ? MaterialStatePropertyAll(happyOrange)
                                   : MaterialStatePropertyAll(pink)),
                           onPressed: isRecording
-                              ? () => stopRecording
-                              : () => startRecording,
+                              ? () => stopRecording()
+                              : () => startRecording(),
                           child: showIconRecord(isRecording),
                         ),
                       ),
@@ -236,6 +236,7 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
   }
 
   void startRecording() async {
+    print('HOLA');
     try {
       if (await audioRecord.hasPermission()) {
         audioRecord.start();
