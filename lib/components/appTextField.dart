@@ -4,7 +4,14 @@ import 'package:hackpue/constants.dart';
 class AppTextField extends StatelessWidget {
   final String textt;
   final void Function(String?)? onSaved;
-  const AppTextField({super.key, required this.textt, this.onSaved});
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  const AppTextField(
+      {super.key,
+      required this.textt,
+      this.onSaved,
+      this.controller,
+      this.focusNode});
 
   @override
   Widget build(BuildContext context) {

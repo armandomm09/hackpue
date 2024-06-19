@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
-import 'package:hackpue/pages/askUserInfo.dart'; // Asegúrate de tener este archivo
+import 'package:hackpue/pages/askUserInfo.dart';
+import 'package:hackpue/pages/chat/firstChatPromt.dart'; // Asegúrate de tener este archivo
 
 class appServices extends StatelessWidget {
   const appServices({super.key});
@@ -60,7 +61,7 @@ class appServices extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ChatGPTScreen(),
+                              builder: (context) => const FirstPromptChat(),
                             ),
                           );
                         },

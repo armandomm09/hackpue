@@ -68,11 +68,13 @@ class LoginPage extends StatelessWidget {
               ),
               AppTextField(
                 textt: 'Email',
+                controller: emailController,
               ),
               const SizedBox(
                 height: 25,
               ),
               AppTextField(textt: 'Password',
+              controller: passwordController,
               ),
               const SizedBox(
                 height: 25,
