@@ -36,7 +36,7 @@ class MyCarouselItem extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                size: 150,
+                size: 120,
                 color: gradientColor,
               ),
               Text(
