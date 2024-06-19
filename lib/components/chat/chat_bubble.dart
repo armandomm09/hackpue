@@ -27,14 +27,16 @@ class ChatBubble extends StatelessWidget {
     } else {
       return Container(
         decoration: BoxDecoration(
-          color: isCurrentUser ? happyYellow : deepPurple,
+          color: isCurrentUser ? happyYellow : happyOrange,
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(20),
         margin: marginOnUser,
         child: SelectableText(
           message,
-          style: TextStyle(color: defaultText),
+          style: TextStyle(
+              color: isCurrentUser ? defaultText : deepPurple,
+              fontWeight: FontWeight.w500),
         ),
       );
     }

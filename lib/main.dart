@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/constants.dart';
 import 'package:hackpue/firebase_options.dart';
 import 'package:hackpue/pages/app_intro/gradient.dart';
 import 'package:hackpue/pages/app_intro/mainPage.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: lavender),
           useMaterial3: true,
         ),
         home: AuthGate());

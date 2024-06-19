@@ -8,51 +8,66 @@ import 'package:hackpue/services/auth/authgate.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
-  void signOut(BuildContext context){
+  void signOut(BuildContext context) {
     final auth = AuthService();
     auth.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthGate()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const AuthGate()));
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(206, 7, 7, 7),//Theme.of(context).colorScheme.surface,
-      child:  Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      surfaceTintColor: lavender,
+      width: 250,
+      backgroundColor: happyYellow, //Theme.of(context).colorScheme.surface,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             children: [
               Center(
                 child: DrawerHeader(
                   //margin: EdgeInsets.symmetric(vertical: 50),
-                child: Column(children: [
-                  //Image.asset("assets/images/5887_trans.png", height: 125,),
-                  Icon(Icons.settings, size: 130, color: lavender,)
-                  //SizedBox(height: 20,)
+                  child: Column(children: [
+                    //Image.asset("assets/images/5887_trans.png", height: 125,),
+                    Icon(
+                      Icons.web,
+                      size: 130,
+                      color: happyOrange,
+                    )
+                    //SizedBox(height: 20,)
                   ]),
-
                 ),
               ),
-              
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: ListTile(
-                  title: Text("H O M E", style: TextStyle(fontFamily: "Industry", color: Theme.of(context).colorScheme.inversePrimary,)),
-                  leading: Icon(Icons.home, color: Theme.of(context).colorScheme.inversePrimary,),
+                  title: Text("Home",
+                      style: TextStyle(
+                          fontFamily: "Industry",
+                          color: deepPurple,
+                          fontWeight: FontWeight.bold)),
+                  leading: Icon(
+                    Icons.home,
+                    color: pink,
+                  ),
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainPage()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainPage()));
                   },
                 ),
               ),
-              const SizedBox(height: 12,),
-
-              
+              const SizedBox(
+                height: 12,
+              ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 28),
             child: Column(
@@ -61,23 +76,42 @@ class AppDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 0, bottom: 0),
                   child: ListTile(
-                    title: Text("S E T T I N G S", style: TextStyle(fontFamily: "Industry", color: Theme.of(context).colorScheme.primary,)),
-                    leading: Icon(Icons.settings, color: Theme.of(context).colorScheme.inversePrimary,),
+                    splashColor: happyOrange,
+                    shape: RoundedRectangleBorder(),
+                    title: Text("Settings",
+                        style: TextStyle(
+                            fontFamily: "Industry",
+                            color: deepPurple,
+                            fontWeight: FontWeight.bold)),
+                    leading: Icon(
+                      Icons.settings,
+                      color: pink,
+                    ),
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UserProfilePage()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const UserProfilePage()));
                     },
                   ),
                 ),
                 Padding(
-                      padding: const EdgeInsets.only(left: 0, bottom: 0),
-                      child: ListTile(
-                        title: Text("L O G  O U T", style: TextStyle(fontFamily: "Industry", color: Theme.of(context).colorScheme.primary,)),
-                        leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.inversePrimary,),
-                        onTap: () {
-                          signOut(context);
-                        },
-                      ),
+                  padding: const EdgeInsets.only(left: 0, bottom: 0),
+                  child: ListTile(
+                    title: Text("Log Out",
+                        style: TextStyle(
+                            fontFamily: "Industry",
+                            color: deepPurple,
+                            fontWeight: FontWeight.bold)),
+                    leading: Icon(
+                      Icons.logout,
+                      color: pink,
                     ),
+                    onTap: () {
+                      signOut(context);
+                    },
+                  ),
+                ),
               ],
             ),
           ),

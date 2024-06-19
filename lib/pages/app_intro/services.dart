@@ -6,7 +6,7 @@ import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart';
-import 'package:hackpue/pages/chat/upload_audio.dart'; // Asegúrate de tener este archivo
+import 'package:hackpue/pages/chat/upload_audio.dart';
 
 class AppServices extends StatelessWidget {
   const AppServices({super.key});

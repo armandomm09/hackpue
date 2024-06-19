@@ -45,6 +45,8 @@ dependencies:
   permission_handler: ^11.3.1
   file_picker: ^8.0.5
   flutter_sound: ^9.6.0
+  avatar_glow: ^3.0.1
+  highlight_text: ^1.7.0
 
 dev_dependencies:
   flutter_test:

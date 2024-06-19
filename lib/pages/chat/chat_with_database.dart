@@ -24,7 +24,6 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
 
   Widget imageOverlayer = Container();
 
-
   @override
   void initState() {
     scrollDown();
@@ -236,10 +235,12 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
         child: Container(
           child: Stack(
             children: [
-                  Column(
-                  children: [Expanded(child: buildMessageList()), buildUserInput()]),
-                  imageOverlayer
-                ],
+              Column(children: [
+                Expanded(child: buildMessageList()),
+                buildUserInput()
+              ]),
+              imageOverlayer
+            ],
           ),
         ),
       ),
