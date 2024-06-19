@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/firebase_options.dart';
+
 import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hackpue/pages/app_intro/starting.dart';
 import 'package:hackpue/pages/app_intro/welcome.dart';
+import 'package:hackpue/services/auth/authgate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: deepPurple),
           useMaterial3: true,
           fontFamily: 'Inter'),
-      home: const startingGradient(),
+      home: const introToApp(),
     );
   }
 }
