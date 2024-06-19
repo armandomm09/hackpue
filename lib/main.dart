@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hackpue/firebase_options.dart';
 import 'package:hackpue/pages/app_intro/mainPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hackpue/pages/app_intro/services.dart';
+import 'package:hackpue/pages/chat/chat_with_database.dart';
+import 'package:hackpue/pages/chat/firstChatPromt.dart';
 import 'package:hackpue/pages/user_sign/login_page.dart';
 import 'package:hackpue/services/auth/authgate.dart';
 
@@ -19,15 +22,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-      
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: AuthGate(),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: AuthGate());
   }
 }
-
-

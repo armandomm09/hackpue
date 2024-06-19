@@ -1,9 +1,9 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackpue/components/appTextField.dart';
 import 'package:hackpue/components/chat/chat_bubble.dart';
 import 'package:hackpue/constants.dart';
+import 'package:hackpue/pages/chat/quiz/quizChat.dart';
 import 'package:hackpue/services/auth/auth_service.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
 
@@ -21,68 +21,74 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   final AuthService authService = AuthService();
 
   @override
-  void initState(){
+  void initState() {
     scrollDown();
     super.initState();
   }
 
   @override
-  void dispose(){ 
+  void dispose() {
     focusNode.dispose();
     messageController.dispose();
     scrollController.dispose();
     super.dispose();
   }
-  scrollDown() {
-     WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (scrollController.hasClients) {
-              scrollController.jumpTo(scrollController.position.maxScrollExtent);
-            }
-          });
-  }
 
-  
+  scrollDown() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
+    });
+  }
 
   TextEditingController messageController = TextEditingController();
 
   buildUserInput() {
-    return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-      child: Row(
-        children: [
-          Expanded(
-            child: AppTextField(
-              focusNode: focusNode,
-              textt: "Message",
-              controller: messageController,
-            ),
-          ),
-          
-          Container(
-              decoration: const BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle,
-              ),
-              height: 70,
-              margin: const EdgeInsets.only(right: 25),
-              child: IconButton(
-                onPressed: () {
-                  GPTService.newGptMessage(messageController.text);
-                  //ScoutGPTService.newGptMessage(messageController.text);
-                  messageController.text = '';
-                },
-                icon: const Icon(
-                  Icons.send,
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(color: backgroundGlobal),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: 300,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: AppTextField(
+                  desiredColor: deepPurple,
+                  focusNode: focusNode,
+                  textt: "Message",
+                  controller: messageController,
                 ),
-              ))
-        ],
+              ),
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  color: lavender,
+                  shape: BoxShape.circle,
+                ),
+                height: 70,
+                child: IconButton(
+                  onPressed: () {
+                    GPTService.newGptMessage(messageController.text);
+                    //ScoutGPTService.newGptMessage(messageController.text);
+                    messageController.text = '';
+                  },
+                  icon: Icon(
+                    Icons.send_rounded,
+                    size: 25,
+                    color: deepPurple,
+                  ),
+                ))
+          ],
+        ),
       ),
     );
   }
 
   buildMessageList() {
     return StreamBuilder(
-        
         stream: GPTService.getMessages(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -125,23 +131,28 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myBackGroundColor,
+      backgroundColor: backgroundGlobal,
       appBar: AppBar(
-        backgroundColor:
-            appBarBackgorundColor, //Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => quizChat()));
+              },
+              icon: Icon(Icons.question_mark_outlined))
+        ],
+        backgroundColor: deepPurple, //Theme.of(context).colorScheme.primary,
         elevation: 50,
-        foregroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: pink,
         title: Text(
-           "Scout GPT",
-           style: TextStyle(color: myTitleColor),
+          "Chat with AI",
+          style: TextStyle(color: backgroundGlobal),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: buildMessageList()), 
-            buildUserInput()
-            ]
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+            children: [Expanded(child: buildMessageList()), buildUserInput()]),
       ),
     );
   }
