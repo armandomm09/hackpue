@@ -4,8 +4,9 @@ import 'package:hackpue/constants.dart';
 class appDropdown extends StatefulWidget {
   String defaultValue;
   final List<String> list;
+  final Function(String?)? onChanged;
 
-  appDropdown({super.key, required this.defaultValue, required this.list});
+  appDropdown({super.key, required this.defaultValue, required this.list, this.onChanged});
 
   @override
   State<appDropdown> createState() => _appDropdownState();
@@ -31,11 +32,7 @@ class _appDropdownState extends State<appDropdown> {
           child: Text(value),
         );
       }).toList(),
-      onChanged: (newValue) {
-        setState(() {
-          widget.defaultValue = newValue!;
-        });
-      },
+      onChanged: widget.onChanged,
       style: TextStyle(color: defaultText),
       dropdownColor: happyYellow,
     );

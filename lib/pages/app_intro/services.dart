@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hackpue/components/materialApp/appDrawer.dart';
 import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart'; // Asegúrate de tener este archivo
 
-class appServices extends StatelessWidget {
-  const appServices({super.key});
+class AppServices extends StatelessWidget {
+  const AppServices({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
           title: Text(
@@ -62,7 +64,7 @@ class appServices extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const FirstPromptChat(),
+                              builder: (context) => const ChatWithDatabase(),
                             ),
                           );
                         },
