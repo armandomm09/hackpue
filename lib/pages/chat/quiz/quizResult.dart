@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/constants.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hackpue/pages/app_intro/mainPage.dart';
+import 'package:hackpue/pages/app_intro/services.dart';
+import 'package:hackpue/pages/chat/chat_with_database.dart';
 
 class quizResultPage extends StatelessWidget {
   final String result;
@@ -53,7 +56,6 @@ class quizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Scaffold(
-          appBar: AppBar(),
           backgroundColor: happyYellow,
           body: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -87,18 +89,41 @@ class quizResultPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStatePropertyAll(lavender)),
-                                onPressed: () {},
-                                child: Text('¡Quiero mejorar!'))
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStatePropertyAll(lavender)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatWithDatabase()));
+                          },
+                          child: Text(
+                            '¡Quiero mejorar!',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
                             .animate(delay: Duration(seconds: 2))
                             .shake(delay: Duration(seconds: 1))
                             .shake(delay: Duration(milliseconds: 100)),
                         SizedBox(
                           height: 20,
                         ),
-                        ElevatedButton(onPressed: () {}, child: Text('Volver'))
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AppServices()));
+                          },
+                          child: Text(
+                            'Volver',
+                            style: TextStyle(color: deepPurple),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStatePropertyAll(happyOrange)),
+                        )
                       ],
                     ),
                   )

@@ -39,12 +39,11 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
 
   Future<String> speechToText(String filePath) async {
     try {
-      const apiKey = 'sk-proj-CCGa043OAmNNG4HgUFxET3BlbkFJ4WKsVsU1ZGM0B2nZ7v6d'; // Reemplaza con tu clave API
+      const apiKey =
+          'sk-proj-CCGa043OAmNNG4HgUFxET3BlbkFJ4WKsVsU1ZGM0B2nZ7v6d'; // Reemplaza con tu clave API
       var url = Uri.https('api.openai.com', '/v1/audio/transcriptions');
       var request = http.MultipartRequest("POST", url);
-      request.headers.addAll(({
-        "Authorization": "Bearer $apiKey"
-      }));
+      request.headers.addAll(({"Authorization": "Bearer $apiKey"}));
       request.fields['model'] = 'whisper-1';
       request.fields['language'] = 'es';
       request.fields['response_format'] = 'verbose_json';
@@ -62,64 +61,126 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
     }
   }
 
+  Widget showIconRecord(bool isListening) {
+    if (isListening) {
+      return Icon(
+        Icons.mic,
+        color: happyOrange,
+      );
+    } else {
+      return Icon(
+        Icons.mic_none,
+        color: lavender,
+      );
+    }
+  }
+
+  Widget showIconListen(bool isListening) {
+    if (isListening) {
+      return Icon(
+        Icons.volume_down,
+        color: happyOrange,
+      );
+    } else {
+      return Icon(
+        Icons.volume_mute,
+        color: lavender,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      /*
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
         animate: isRecording,
-        glowColor: Colors.pinkAccent,
+        glowColor: pink,
         duration: const Duration(milliseconds: 2000),
         repeat: true,
         child: FloatingActionButton(
-          backgroundColor: myBackGroundColor,
+          backgroundColor: isRecording ? happyOrange : happyYellow,
           onPressed: isRecording ? stopRecording : startRecording,
-          child: Icon(isRecording ? Icons.mic : Icons.mic_none),
+          child: showIcon(isListening),
         ),
       ),
+      */
       appBar: AppBar(
         title: const Text('Confidence:'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-            child: Text(
-              convertedText,
-              style: const TextStyle(
-                fontSize: 20.0,
-                color: Colors.black,
+          SingleChildScrollView(
+            reverse: true,
+            //padding: const EdgeInsets.fromLTRB(0.0, 30.0, 30.0, 150.0),
+            child: Container(
+              padding: EdgeInsets.only(top: 40),
+              child: Text(
+                convertedText,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: defaultText,
+                ),
               ),
             ),
           ),
-          //SizedBox(height: 90,),
-          AppButton(text: 'Send', onPressed: () {
-            print('Textt: ' + convertedText);
-            Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatWithDatabase(initialQuestion: convertedText,),
-                            ),
-                          );
-          },),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ElevatedButton(
-                  onPressed: startListeningRecording,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    minimumSize: const Size(40, 60),
-                    backgroundColor: deepPurple,
-                  ),
-                  child: Icon(isListening ? Icons.volume_mute : Icons.volume_up),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 500),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                AppButton(
+                  text: 'Send',
+                  onPressed: () {
+                    print('Text: ' + convertedText);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatWithDatabase(
+                          initialQuestion: convertedText,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      AvatarGlow(
+                        animate: isRecording,
+                        glowColor: pink,
+                        duration: const Duration(milliseconds: 2000),
+                        repeat: true,
+                        child: FloatingActionButton(
+                          backgroundColor: isRecording ? happyOrange : pink,
+                          onPressed:
+                              isRecording ? stopRecording : startRecording,
+                          child: showIconRecord(isRecording),
+                        ),
+                      ),
+                      AvatarGlow(
+                        animate: isRecording,
+                        glowColor: pink,
+                        duration: const Duration(milliseconds: 2000),
+                        repeat: true,
+                        child: FloatingActionButton(
+                          backgroundColor: isRecording ? happyOrange : pink,
+                          onPressed: startListeningRecording,
+                          child: showIconListen(isListening),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
+          //SizedBox(height: 90,),
         ],
       ),
     );
