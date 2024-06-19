@@ -24,7 +24,7 @@ class AppTextField extends StatelessWidget {
                 ),
               ),
               onSaved: onSaved,
-              style: const TextStyle(color: Colors.white),
+              style:  TextStyle(color: deepPurple),
             );
   }
 }

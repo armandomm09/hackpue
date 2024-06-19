@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/constants.dart';
+import 'package:hackpue/pages/askUserInfo.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -8,13 +10,13 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 28, 48, 225),
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              child: const Text('Guardar'),
-            );
+      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(happyYellow)),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: TextStyle(
+            color: lavender, fontWeight: FontWeight.bold, letterSpacing: 1),
+      ),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackpue/firebase_options.dart';
-import 'package:hackpue/mainPage.dart';
+import 'package:hackpue/pages/app_intro/mainPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hackpue/pages/user_sign/login_page.dart';
 import 'package:hackpue/services/auth/authgate.dart';

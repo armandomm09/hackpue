@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackpue/constants.dart';
 
 class MyCarouselItem extends StatelessWidget {
   final String title;
@@ -13,24 +14,32 @@ class MyCarouselItem extends StatelessWidget {
         margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          
         ),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            gradient: LinearGradient(
-              colors: [Color.fromARGB(255, 5, 5, 109).withOpacity(0.6), const Color.fromARGB(255, 0, 0, 0).withOpacity(0.1)],
+              borderRadius: BorderRadius.circular(20.0),
+              gradient: LinearGradient(
+                  colors: [happyYellow, backgroundGlobal],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topLeft)
+
+              /*LinearGradient(
+              colors: [happyYellow, ],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            )
+            */
+              ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  letterSpacing: 1,
+                  color: defaultText,
+                ),
               ),
             ),
           ),
