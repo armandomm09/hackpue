@@ -204,7 +204,10 @@ class _quizChatState extends State<quizChat> {
           appBar: AppBar(
             title: Text(
               'Quiz',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
             ),
             backgroundColor: backgroundGlobal,
             bottom: TabBar(
@@ -217,10 +220,10 @@ class _quizChatState extends State<quizChat> {
                   Color iconColor;
                   if (questionResults[index] == true) {
                     icon = Icons.sentiment_very_satisfied; // Happy face icon
-                    iconColor = Colors.green;
+                    iconColor = pink;
                   } else if (questionResults[index] == false) {
                     icon = Icons.sentiment_very_dissatisfied; // Sad face icon
-                    iconColor = Colors.red;
+                    iconColor = deepPurple;
                   } else {
                     icon = Icons.question_answer; // Default icon
                     iconColor = lavender;
