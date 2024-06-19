@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 /* FIREBASE REQUIRED IMPORTS */
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hackpue/components/appDropdown.dart';
 import 'package:hackpue/components/appTextField.dart';
+import 'package:hackpue/constants.dart';
 
 class questionTab extends StatefulWidget {
   const questionTab({super.key});
@@ -15,22 +17,7 @@ class questionTab extends StatefulWidget {
 }
 
 class _questionTabState extends State<questionTab> {
-  /* HOW TO SEND DATA TO REAL TIME DATABASE:
-
-      1. Create an ainstance of our database.
-        // a path to our real time database, wich when initialized,
-        points to the top of our tree.
-      2. Create a child to my reference inside my builder, wich will 
-      refer (xd?) to my branches.
-      3. Write data using <set> method.
-        // This should be done in a JSON format, as follows:
-        {
-          'key': 'data',
-          'key1': 'data1',
-          'key3': 'data3',
-        }
-
-  */
+  String _defaultQuestion = '';
 
   // TEXT EDITING CONTROLLERS TO ADD SIMULATED SENSOR DATA TO FIREBASE:
   TextEditingController _emgValue = TextEditingController();
@@ -58,26 +45,35 @@ class _questionTabState extends State<questionTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: happyYellow,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              DropdownButton(
-                value: _dropdownValue,
-                items: muscles.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                      value: value, child: Text(value));
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _dropdownValue = newValue!;
-                  });
-                },
+              Text(
+                'Question 1',
+                style: TextStyle(fontSize: 20),
               ),
+              SizedBox(height: 50),
+              appDropdown(
+                  defaultValue: '1',
+                  textColor: defaultText,
+                  width: 200,
+                  list: ['1', '2', '3'],
+                  theme: 'question',
+                  dropdownColor: lavender,
+                  onChanged: (p0) {
+                    setState(() {
+                      _defaultQuestion = p0!;
+                    });
+                  }),
               SizedBox(height: 20),
-              AppTextField(textt: 'holis'),
+              Container(
+                child: AppTextField(textt: 'holis'),
+                width: 200,
+              ),
               SizedBox(
                 height: 50,
               ),
@@ -86,35 +82,6 @@ class _questionTabState extends State<questionTab> {
                 child: Text('Send'),
                 // PROPER SYNTAXIS TO WRITE DATA IN A JSON FORMAT.
               ),
-
-              /*
-              ElevatedButton(
-                  onPressed: () {
-                    // PROPER SYNTAXIS TO CHANGE DATA.
-                    testWrite
-                        .child('/child1/')
-                        .set('another value')
-                        .then((_) => print('Data values have been CHANGED!'))
-                        .catchError((error) =>
-                            print('Something didnt work! Error: $error'));
-                    ;
-                  },
-                  child: Text('Press to change')),
-              ElevatedButton(
-                  onPressed: () {
-                    // PROPER SYNTAXIS TO CHANGE/REPLACE DATA.
-                    testWrite
-                        .update({
-                          'child2':
-                              'value now equals = ${Random().nextInt(100)}'
-                        })
-                        .then((_) => print('Data values have been UPDATED!'))
-                        .catchError((error) =>
-                            print('Something didnt work! Error: $error'));
-                    ;
-                  },
-                  child: Text('Press to update')),
-              */
             ],
           ),
         ),
