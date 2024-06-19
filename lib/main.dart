@@ -31,6 +31,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: lavender),
           useMaterial3: true,
         ),
-        home: DemoAppServices());
+        home: StartingGradient());
   }
 }

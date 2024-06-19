@@ -19,7 +19,7 @@ class AppServices extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
           title: Text(
-            'Mosaic',
+            'Home',
             style:
                 TextStyle(fontWeight: FontWeight.bold, color: backgroundGlobal),
           ),
@@ -32,37 +32,21 @@ class AppServices extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const SizedBox(height: 20),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      '¡Conoce a tus nuevos aliados!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: deepPurple,
-                          fontWeight: FontWeight.w500),
-                    ),
+                  Image(
+                    image: AssetImage('assets/images/fondoblanco.png'),
+                    width: 200,
                   ),
 
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  Text(
-                    'En tu día a día estudiantil',
-                    style: TextStyle(fontSize: 18),
-                  ),
-
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 50),
 
                   CarouselSlider(
                     items: [
                       MyCarouselItem(
+                        icon: Icons.message,
                         isDemo: false,
-                        gradientColor: happyYellow,
+                        gradientColor: happyOrange,
                         title: 'Chatear con ChatGPT',
                         onTap: () {
                           // Navegar a la pantalla de ChatGPT
@@ -75,8 +59,9 @@ class AppServices extends StatelessWidget {
                         },
                       ),
                       MyCarouselItem(
+                        icon: Icons.upload_file_rounded,
                         isDemo: false,
-                        gradientColor: happyYellow,
+                        gradientColor: lavender,
                         title: 'Subir un Archivo',
                         onTap: () {
                           // Navegar a la pantalla de subir archivo
@@ -89,6 +74,7 @@ class AppServices extends StatelessWidget {
                         },
                       ),
                       MyCarouselItem(
+                        icon: Icons.record_voice_over_sharp,
                         isDemo: false,
                         gradientColor: happyYellow,
                         title: 'Grabar Audio',
@@ -114,26 +100,7 @@ class AppServices extends StatelessWidget {
                       viewportFraction: 0.8,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(happyYellow)),
-                    onPressed: () {
-                      // Navegar a la pantalla de formulario
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UserInfoFormScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'I like it!',
-                      style: TextStyle(
-                          color: lavender, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+
                   // Agregar más widgets aquí según sea necesario
                 ],
               ),

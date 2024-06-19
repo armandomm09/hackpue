@@ -20,9 +20,9 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       surfaceTintColor: lavender,
       width: 250,
-      backgroundColor: happyYellow, //Theme.of(context).colorScheme.surface,
+      backgroundColor: deepPurple, //Theme.of(context).colorScheme.surface,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
             children: [
@@ -31,17 +31,13 @@ class AppDrawer extends StatelessWidget {
                   //margin: EdgeInsets.symmetric(vertical: 50),
                   child: Column(children: [
                     //Image.asset("assets/images/5887_trans.png", height: 125,),
-                    Icon(
-                      Icons.web,
-                      size: 130,
-                      color: happyOrange,
-                    )
+                    Image(
+                      image: AssetImage('assets/images/unatintablanco.png'),
+                      width: 150,
+                    ),
                     //SizedBox(height: 20,)
                   ]),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 25),
@@ -49,7 +45,7 @@ class AppDrawer extends StatelessWidget {
                   title: Text("Home",
                       style: TextStyle(
                           fontFamily: "Industry",
-                          color: deepPurple,
+                          color: backgroundGlobal,
                           fontWeight: FontWeight.bold)),
                   leading: Icon(
                     Icons.home,
@@ -62,9 +58,6 @@ class AppDrawer extends StatelessWidget {
                             builder: (context) => const MainPage()));
                   },
                 ),
-              ),
-              const SizedBox(
-                height: 12,
               ),
             ],
           ),
@@ -81,11 +74,11 @@ class AppDrawer extends StatelessWidget {
                     title: Text("Settings",
                         style: TextStyle(
                             fontFamily: "Industry",
-                            color: deepPurple,
+                            color: backgroundGlobal,
                             fontWeight: FontWeight.bold)),
                     leading: Icon(
                       Icons.settings,
-                      color: pink,
+                      color: happyOrange,
                     ),
                     onTap: () {
                       Navigator.pushReplacement(
@@ -101,11 +94,11 @@ class AppDrawer extends StatelessWidget {
                     title: Text("Log Out",
                         style: TextStyle(
                             fontFamily: "Industry",
-                            color: deepPurple,
+                            color: backgroundGlobal,
                             fontWeight: FontWeight.bold)),
                     leading: Icon(
                       Icons.logout,
-                      color: pink,
+                      color: happyYellow,
                     ),
                     onTap: () {
                       signOut(context);

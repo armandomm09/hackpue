@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackpue/constants.dart';
+import 'package:hackpue/services/auth/authgate.dart';
 
 class StartingGradient extends StatelessWidget {
   const StartingGradient({super.key});
@@ -19,19 +20,21 @@ class StartingGradient extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.web,
-                color: backgroundGlobal,
+              Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Image(
+                    image: AssetImage('assets/images/unatintablanco.png')),
               ),
-              Center(
-                child: Text(
-                  'chachitos.dev',
-                  style: TextStyle(
-                      fontSize: 40,
-                      color: backgroundGlobal,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AuthGate()));
+                },
+                child: Icon(Icons.fingerprint),
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+                    foregroundColor: WidgetStatePropertyAll(Colors.white)),
+              )
             ],
           ),
         ),

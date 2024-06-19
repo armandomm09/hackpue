@@ -99,8 +99,12 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ask GPT with File'),
-        backgroundColor: Colors.deepPurple,
+        title: Text(
+          'Ask GPT with File',
+          style: TextStyle(color: defaultText),
+        ),
+        backgroundColor: backgroundGlobal,
+        foregroundColor: happyOrange,
       ),
       body: Center(
         child: Padding(

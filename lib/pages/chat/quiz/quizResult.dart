@@ -56,7 +56,7 @@ class quizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Scaffold(
-          backgroundColor: happyYellow,
+          backgroundColor: backgroundGlobal,
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(

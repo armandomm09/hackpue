@@ -65,12 +65,12 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
     if (isListening) {
       return Icon(
         Icons.mic,
-        color: happyOrange,
+        color: lavender,
       );
     } else {
       return Icon(
         Icons.mic_none,
-        color: lavender,
+        color: happyYellow,
       );
     }
   }
@@ -79,12 +79,12 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
     if (isListening) {
       return Icon(
         Icons.volume_down,
-        color: happyOrange,
+        color: lavender,
       );
     } else {
       return Icon(
         Icons.volume_mute,
-        color: lavender,
+        color: happyYellow,
       );
     }
   }
@@ -92,109 +92,103 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: isRecording,
-        glowColor: pink,
-        duration: const Duration(milliseconds: 2000),
-        repeat: true,
-        child: FloatingActionButton(
-          backgroundColor: isRecording ? happyOrange : happyYellow,
-          onPressed: isRecording ? stopRecording : startRecording,
-          child: showIcon(isListening),
+      appBar: AppBar(
+        foregroundColor: pink,
+        title: Text(
+          'Confidence:',
+          style: TextStyle(color: defaultText),
         ),
       ),
-      */
-      appBar: AppBar(
-        title: const Text('Confidence:'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SingleChildScrollView(
-            reverse: true,
-            //padding: const EdgeInsets.fromLTRB(0.0, 30.0, 30.0, 150.0),
-            child: Container(
-              padding: EdgeInsets.only(top: 40),
-              child: Text(
-                convertedText,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: defaultText,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SingleChildScrollView(
+              reverse: true,
+              //padding: const EdgeInsets.fromLTRB(0.0, 30.0, 30.0, 150.0),
+              child: Container(
+                padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+                child: Text(
+                  convertedText,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: defaultText,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          Padding(
-            padding: const EdgeInsets.only(top: 500),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                AppButton(
-                  text: 'Send',
-                  onPressed: () {
-                    print('Text: ' + convertedText);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatWithDatabase(
-                          initialQuestion: convertedText,
+            Padding(
+              padding: const EdgeInsets.only(top: 500),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AppButton(
+                    text: 'Send',
+                    onPressed: () {
+                      print('Text: ' + convertedText);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatWithDatabase(
+                            initialQuestion: convertedText,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AvatarGlow(
-                        animate: isRecording,
-                        glowColor: pink,
-                        duration: const Duration(milliseconds: 2000),
-                        repeat: true,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        AvatarGlow(
+                          animate: isRecording,
+                          glowColor: pink,
+                          duration: const Duration(milliseconds: 2000),
+                          repeat: true,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                padding: MaterialStatePropertyAll(
+                                    EdgeInsets.all(10)),
+                                fixedSize:
+                                    MaterialStatePropertyAll(Size(60, 60)),
+                                backgroundColor: isRecording
+                                    ? MaterialStatePropertyAll(happyOrange)
+                                    : MaterialStatePropertyAll(lavender)),
+                            onPressed: isRecording
+                                ? () => stopRecording()
+                                : () => startRecording(),
+                            child: showIconRecord(isRecording),
+                          ),
+                        ),
+                        AvatarGlow(
+                          animate: isRecording,
+                          glowColor: pink,
+                          duration: const Duration(milliseconds: 2000),
+                          repeat: true,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
                               padding:
                                   MaterialStatePropertyAll(EdgeInsets.all(10)),
                               fixedSize: MaterialStatePropertyAll(Size(60, 60)),
                               backgroundColor: isRecording
                                   ? MaterialStatePropertyAll(happyOrange)
-                                  : MaterialStatePropertyAll(pink)),
-                          onPressed: isRecording
-                              ? () => stopRecording()
-                              : () => startRecording(),
-                          child: showIconRecord(isRecording),
-                        ),
-                      ),
-                      AvatarGlow(
-                        animate: isRecording,
-                        glowColor: pink,
-                        duration: const Duration(milliseconds: 2000),
-                        repeat: true,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
-                            fixedSize: MaterialStatePropertyAll(Size(60, 60)),
-                            backgroundColor: isRecording
-                                ? MaterialStatePropertyAll(happyOrange)
-                                : MaterialStatePropertyAll(pink),
+                                  : MaterialStatePropertyAll(lavender),
+                            ),
+                            onPressed: startListeningRecording,
+                            child: showIconListen(isListening),
                           ),
-                          onPressed: startListeningRecording,
-                          child: showIconListen(isListening),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          //SizedBox(height: 90,),
-        ],
+            //SizedBox(height: 90,),
+          ],
+        ),
       ),
     );
   }

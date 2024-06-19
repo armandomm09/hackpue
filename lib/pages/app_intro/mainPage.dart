@@ -6,6 +6,7 @@ import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/app_intro/services.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
+import 'package:hackpue/pages/servicesDemoPage.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -56,7 +57,7 @@ class MainPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AppServices(),
+                          builder: (context) => const DemoAppServices(),
                         ),
                       );
                     },

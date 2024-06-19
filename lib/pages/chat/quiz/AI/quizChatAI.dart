@@ -81,7 +81,7 @@ class _quizChatState extends State<quizChat> {
               ),
               textAlign: TextAlign.center,
             ),
-            backgroundColor: backgroundGlobal,
+            backgroundColor: happyYellow,
             bottom: TabBar(
               // Tab bar with tabs generated based on quiz questions
               indicatorColor: lavender,
@@ -93,10 +93,10 @@ class _quizChatState extends State<quizChat> {
                   Color iconColor;
                   if (questionResults[index] == true) {
                     icon = Icons.sentiment_very_satisfied; // Happy face icon
-                    iconColor = pink;
+                    iconColor = lavender;
                   } else if (questionResults[index] == false) {
                     icon = Icons.sentiment_very_dissatisfied; // Sad face icon
-                    iconColor = deepPurple;
+                    iconColor = lavender;
                   } else {
                     icon = Icons.question_mark; // Default icon
                     iconColor = happyOrange;

@@ -23,7 +23,7 @@ class ChatWithDatabase extends StatefulWidget {
 
 class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   final AudioPlayer audioPlayer = AudioPlayer();
-  final FlutterSoundPlayer _flutterSoundPlayer = FlutterSoundPlayer();  
+  final FlutterSoundPlayer _flutterSoundPlayer = FlutterSoundPlayer();
   FocusNode focusNode = FocusNode();
   ScrollController scrollController = ScrollController();
 
@@ -32,10 +32,11 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
   Widget imageOverlayer = Container();
 
   initData() async {
-    if(widget.initialQuestion != null){
-        await GPTService.newGptMessage(widget.initialQuestion!);
+    if (widget.initialQuestion != null) {
+      await GPTService.newGptMessage(widget.initialQuestion!);
     }
   }
+
   @override
   void initState() {
     scrollDown();
@@ -195,10 +196,14 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
             if (!data["question"].toString().contains(
                 'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar el mensaje si existe
               ChatBubble(
-                  message: data["question"], isCurrentUser: isCurrentUser, onLongPress: () async {
-                    print('Message long pressed');
-                    AssistantAPIService.textToSpeech(data["question"], _flutterSoundPlayer);
-                  },),
+                message: data["question"],
+                isCurrentUser: isCurrentUser,
+                onLongPress: () async {
+                  print('Message long pressed');
+                  AssistantAPIService.textToSpeech(
+                      data["question"], _flutterSoundPlayer);
+                },
+              ),
             if (data["question"].toString().contains(
                 'oaidalleapiprodscus.blob.core.windows.net')) // Mostrar la imagen si existe
               GestureDetector(
@@ -237,18 +242,22 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => quizChat()));
               },
-              icon: Icon(Icons.question_mark_outlined))
+              icon: Icon(
+                Icons.question_mark_outlined,
+                color: lavender,
+              ))
         ],
-        backgroundColor: deepPurple, //Theme.of(context).colorScheme.primary,
-        elevation: 50,
-        foregroundColor: pink,
+        backgroundColor:
+            backgroundGlobal, //Theme.of(context).colorScheme.primary,
+        //elevation: 50,
+        foregroundColor: lavender,
         title: GestureDetector(
           onLongPress: () async {
             await UserInfoService.resetConversation();
           },
           child: Text(
             "Chat with AI",
-            style: TextStyle(color: backgroundGlobal),
+            style: TextStyle(color: defaultText),
           ),
         ),
       ),
