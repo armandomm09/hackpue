@@ -13,9 +13,7 @@ class ChatBubble extends StatelessWidget {
       {super.key, required this.message, required this.isCurrentUser});
   @override
   Widget build(BuildContext context) {
-
     var newMessage = utf8.encode(message);
-
 
     var marginOnUser = isCurrentUser
         ? const EdgeInsets.only(right: 20, top: 5, bottom: 5, left: 75)
@@ -34,10 +32,10 @@ class ChatBubble extends StatelessWidget {
     } else {
       return Container(
         decoration: BoxDecoration(
-          color: isCurrentUser ? happyYellow : deepPurple,
+          color: isCurrentUser ? happyYellow : happyOrange,
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(20),
         margin: marginOnUser,
         child: SelectableText(
           utf8.decode(newMessage),

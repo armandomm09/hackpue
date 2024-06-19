@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:hackpue/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +17,7 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   bool _isRecording = false;
   String? _recordedFilePath;
-  String _transcribedText = '';
+  String _transcribedText = 'Empieza a hablar';
 
   @override
   void initState() {
@@ -24,10 +26,8 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
   }
 
   Future<void> _initRecorder() async {
-    // Solicitar permisos
     await Permission.microphone.request();
     await Permission.storage.request();
-    
     await _recorder.openRecorder();
   }
 
@@ -52,6 +52,7 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
     setState(() {
       _isRecording = false;
     });
+    _transcribeAudio(); // Trigger transcription automatically
   }
 
   Future<void> _transcribeAudio() async {
@@ -72,8 +73,8 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
         bytes,
         filename: 'audio.aac',
       ));
-      request.fields['model'] = 'whisper-1'; // El modelo de OpenAI para transcripción
-      request.headers['Authorization'] = 'Bearer YOUR_OPENAI_API_KEY'; // Reemplaza con tu clave API de OpenAI
+      request.fields['model'] = 'whisper-1';
+      request.headers['Authorization'] = 'Bearer YOUR_OPENAI_API_KEY';
 
       final response = await request.send();
 
@@ -85,7 +86,7 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
         });
       } else {
         setState(() {
-          _transcribedText = 'Error transcribing audio';
+          _transcribedText = 'Hubo un error! ';
         });
       }
     } catch (e) {
@@ -96,42 +97,61 @@ class _AudioToTextPageState extends State<AudioToTextPage> {
     }
   }
 
+  Widget showIcon(bool isListening) {
+    if (isListening) {
+      return Icon(
+        Icons.mic,
+        color: happyYellow,
+      );
+    } else {
+      return Icon(
+        Icons.mic_none,
+        color: lavender,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Audio to Text'),
+        title: Text(
+          'Audio to Text',
+          textAlign: TextAlign.center,
+        ),
         backgroundColor: Colors.deepPurple,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _isRecording ? _stopRecording : _startRecording,
-              child: Text(_isRecording ? 'Stop Recording' : 'Start Recording'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _isRecording ? Colors.red : Colors.green,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: AvatarGlow(
+        animate: _isRecording,
+        glowColor: pink,
+        //endRadius: 75.0,
+        duration: Duration(milliseconds: 2000),
+        repeat: true,
+        //showTwoGlows: true,
+        //repeatPauseDuration: Duration(milliseconds: 100),
+        child: FloatingActionButton(
+          onPressed: _isRecording ? _stopRecording : _startRecording,
+          child: showIcon(_isRecording),
+          backgroundColor: _isRecording ? happyOrange : happyYellow,
+        ),
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                _transcribedText,
+                style: TextStyle(fontSize: 18, color: Colors.black),
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 20),
-            if (_recordedFilePath != null)
-              ElevatedButton(
-                onPressed: _transcribeAudio,
-                child: Text('Transcribe Audio'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
-              ),
-            const SizedBox(height: 20),
-            Text(
-              _transcribedText,
-              style: TextStyle(fontSize: 18, color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
