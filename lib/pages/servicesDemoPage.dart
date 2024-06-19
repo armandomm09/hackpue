@@ -1,29 +1,25 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hackpue/components/materialApp/appDrawer.dart';
+import 'package:hackpue/components/myCarrouselDemo.dart';
 import 'package:hackpue/components/my_carousel_item.dart';
 import 'package:hackpue/constants.dart';
 import 'package:hackpue/pages/askUserInfo.dart';
 import 'package:hackpue/pages/chat/chat_with_database.dart';
 import 'package:hackpue/pages/chat/firstChatPromt.dart';
+import 'package:hackpue/pages/chat/quiz/quizResult.dart';
 import 'package:hackpue/pages/chat/uploadFile.dart';
 import 'package:hackpue/pages/chat/upload_audio.dart';
 
-class AppServices extends StatelessWidget {
-  const AppServices({super.key});
+class DemoAppServices extends StatelessWidget {
+  const DemoAppServices({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-          title: Text(
-            'Mosaic',
-            style:
-                TextStyle(fontWeight: FontWeight.bold, color: backgroundGlobal),
-          ),
-          backgroundColor: lavender),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Center(
@@ -60,47 +56,20 @@ class AppServices extends StatelessWidget {
 
                   CarouselSlider(
                     items: [
-                      MyCarouselItem(
-                        isDemo: false,
-                        gradientColor: happyYellow,
+                      MyCarouselDemo(
+                        isDemo: true,
+                        gradientColor: pink,
                         title: 'Chatear con ChatGPT',
-                        onTap: () {
-                          // Navegar a la pantalla de ChatGPT
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ChatWithDatabase(),
-                            ),
-                          );
-                        },
                       ),
-                      MyCarouselItem(
-                        isDemo: false,
-                        gradientColor: happyYellow,
+                      MyCarouselDemo(
+                        isDemo: true,
+                        gradientColor: lavender,
                         title: 'Subir un Archivo',
-                        onTap: () {
-                          // Navegar a la pantalla de subir archivo
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AskGPTWithFile(),
-                            ),
-                          );
-                        },
                       ),
-                      MyCarouselItem(
-                        isDemo: false,
+                      MyCarouselDemo(
+                        isDemo: true,
                         gradientColor: happyYellow,
                         title: 'Grabar Audio',
-                        onTap: () {
-                          // Navegar a la pantalla de grabar audio
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AudioToTextPage(),
-                            ),
-                          );
-                        },
                       ),
                     ],
                     options: CarouselOptions(
