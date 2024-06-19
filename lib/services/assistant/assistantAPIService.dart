@@ -49,6 +49,8 @@ class AssistantAPIService {
     }
   }
 
+  
+
   static generateQuiz(dynamic questionResponse) async {
     print("fetching..");
     var url = "http://live.galliard.mx/api/v1/generate_quizz";
