@@ -71,7 +71,7 @@ class _AskGPTWithFileState extends State<AskGPTWithFile> {
         setState(() {
           uploadedFilePath = requestBody['location'];
         });
-        print(uploadedFilePath);
+        print("Filepath" + uploadedFilePath.toString());
         Navigator.push(
           context,
           MaterialPageRoute(
