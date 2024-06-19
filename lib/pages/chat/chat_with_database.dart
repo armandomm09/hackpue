@@ -10,7 +10,8 @@ import 'package:hackpue/services/auth/auth_service.dart';
 import 'package:hackpue/services/chat/chatWithGpt.dart';
 
 class ChatWithDatabase extends StatefulWidget {
-  const ChatWithDatabase({super.key});
+  final String? initialQuestion;
+  const ChatWithDatabase({super.key, this.initialQuestion});
 
   @override
   State<ChatWithDatabase> createState() => _ChatWithDatabaseState();
@@ -24,10 +25,17 @@ class _ChatWithDatabaseState extends State<ChatWithDatabase> {
 
   Widget imageOverlayer = Container();
 
+  initData() async {
+    print(widget.initialQuestion!);
+    if(widget.initialQuestion != null){
+        await GPTService.newGptMessage(widget.initialQuestion!);
+    }
+  }
   @override
   void initState() {
     scrollDown();
     super.initState();
+    initData();
   }
 
   @override

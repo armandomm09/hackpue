@@ -1,159 +1,192 @@
 import 'dart:convert';
-import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
+import 'package:hackpue/components/appButton.dart';
 import 'package:hackpue/constants.dart';
+import 'package:hackpue/pages/chat/chat_with_database.dart';
+import 'package:record/record.dart';
 import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
 
 class AudioToTextPage extends StatefulWidget {
   @override
-  _AudioToTextPageState createState() => _AudioToTextPageState();
+  State<AudioToTextPage> createState() => _AudioToTextPageState();
 }
 
 class _AudioToTextPageState extends State<AudioToTextPage> {
-  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
-  bool _isRecording = false;
-  String? _recordedFilePath;
-  String _transcribedText = 'Empieza a hablar';
+  late Record audioRecord;
+  late AudioPlayer audioPlayer;
+  String convertedText = 'Text';
+  bool isRecording = false;
+  bool isListening = false;
+  String audioPath = '';
 
   @override
   void initState() {
     super.initState();
-    _initRecorder();
-  }
-
-  Future<void> _initRecorder() async {
-    await Permission.microphone.request();
-    await Permission.storage.request();
-    await _recorder.openRecorder();
+    audioRecord = Record();
+    audioPlayer = AudioPlayer();
+    audioPlayer.onPlayerComplete.listen((_) => audioCompletionListener());
   }
 
   @override
   void dispose() {
-    _recorder.closeRecorder();
+    audioPlayer.dispose();
+    audioRecord.dispose();
     super.dispose();
   }
 
-  Future<void> _startRecording() async {
-    final directory = await getTemporaryDirectory();
-    final filePath = '${directory.path}/temp_audio.aac';
-    await _recorder.startRecorder(toFile: filePath);
-    setState(() {
-      _isRecording = true;
-      _recordedFilePath = filePath;
-    });
-  }
-
-  Future<void> _stopRecording() async {
-    await _recorder.stopRecorder();
-    setState(() {
-      _isRecording = false;
-    });
-    _transcribeAudio(); // Trigger transcription automatically
-  }
-
-  Future<void> _transcribeAudio() async {
-    if (_recordedFilePath == null) return;
-
-    setState(() {
-      _transcribedText = 'Transcribing...';
-    });
-
+  Future<String> speechToText(String filePath) async {
     try {
-      final file = File(_recordedFilePath!);
-      final bytes = await file.readAsBytes();
-      final uri = Uri.parse('https://api.openai.com/v1/audio/transcriptions');
-      final request = http.MultipartRequest('POST', uri);
-
-      request.files.add(http.MultipartFile.fromBytes(
-        'file',
-        bytes,
-        filename: 'audio.aac',
-      ));
+      const apiKey = 'sk-proj-CCGa043OAmNNG4HgUFxET3BlbkFJ4WKsVsU1ZGM0B2nZ7v6d'; // Reemplaza con tu clave API
+      var url = Uri.https('api.openai.com', '/v1/audio/transcriptions');
+      var request = http.MultipartRequest("POST", url);
+      request.headers.addAll(({
+        "Authorization": "Bearer $apiKey"
+      }));
       request.fields['model'] = 'whisper-1';
-      request.headers['Authorization'] = 'Bearer YOUR_OPENAI_API_KEY';
+      request.fields['language'] = 'es';
+      request.fields['response_format'] = 'verbose_json';
+      request.files.add(await http.MultipartFile.fromPath('file', filePath));
 
-      final response = await request.send();
+      var response = await request.send();
+      var newResponse = await http.Response.fromStream(response);
 
-      if (response.statusCode == 200) {
-        final responseData = await http.Response.fromStream(response);
-        final Map<String, dynamic> responseBody = jsonDecode(responseData.body);
-        setState(() {
-          _transcribedText = responseBody['text'] ?? 'Transcription failed';
-        });
-      } else {
-        setState(() {
-          _transcribedText = 'Hubo un error! ';
-        });
-      }
+      final responseData = json.decode(utf8.decode(newResponse.bodyBytes));
+      print(responseData);
+      return responseData['text'];
     } catch (e) {
-      print('Error: $e');
-      setState(() {
-        _transcribedText = 'Error during transcription';
-      });
-    }
-  }
-
-  Widget showIcon(bool isListening) {
-    if (isListening) {
-      return Icon(
-        Icons.mic,
-        color: happyYellow,
-      );
-    } else {
-      return Icon(
-        Icons.mic_none,
-        color: lavender,
-      );
+      print("Error al procesar la solicitud: $e");
+      return "Error al procesar la solicitud";
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Audio to Text',
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: Colors.deepPurple,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: AvatarGlow(
-        animate: _isRecording,
-        glowColor: pink,
-        //endRadius: 75.0,
-        duration: Duration(milliseconds: 2000),
+        animate: isRecording,
+        glowColor: Colors.pinkAccent,
+        duration: const Duration(milliseconds: 2000),
         repeat: true,
-        //showTwoGlows: true,
-        //repeatPauseDuration: Duration(milliseconds: 100),
         child: FloatingActionButton(
-          onPressed: _isRecording ? _stopRecording : _startRecording,
-          child: showIcon(_isRecording),
-          backgroundColor: _isRecording ? happyOrange : happyYellow,
+          backgroundColor: myBackGroundColor,
+          onPressed: isRecording ? stopRecording : startRecording,
+          child: Icon(isRecording ? Icons.mic : Icons.mic_none),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      appBar: AppBar(
+        title: const Text('Confidence:'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
+            child: Text(
+              convertedText,
+              style: const TextStyle(
+                fontSize: 20.0,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          //SizedBox(height: 90,),
+          AppButton(text: 'Send', onPressed: () {
+            print('Textt: ' + convertedText);
+            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatWithDatabase(initialQuestion: convertedText,),
+                            ),
+                          );
+          },),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
-              Text(
-                _transcribedText,
-                style: TextStyle(fontSize: 18, color: Colors.black),
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: startListeningRecording,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    minimumSize: const Size(40, 60),
+                    backgroundColor: deepPurple,
+                  ),
+                  child: Icon(isListening ? Icons.volume_mute : Icons.volume_up),
+                ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
+  }
+
+  void audioCompletionListener() {
+    setState(() {
+      isListening = false;
+    });
+  }
+
+  Future<void> startListeningRecording() async {
+    try {
+      print('Playing...');
+      Source source = UrlSource(audioPath);
+      setState(() {
+        isListening = true;
+      });
+      await audioPlayer.play(source);
+    } catch (e) {
+      setState(() {
+        isListening = false;
+      });
+      print('Error while playing audio... $e');
+    }
+  }
+
+  Future<void> stopListeningRecording() async {
+    try {
+      print('Stopped listening');
+      setState(() {
+        isListening = false;
+      });
+      await audioPlayer.stop();
+    } catch (e) {
+      setState(() {
+        isListening = true;
+      });
+    }
+  }
+
+  void startRecording() async {
+    try {
+      if (await audioRecord.hasPermission()) {
+        audioRecord.start();
+        setState(() {
+          isRecording = true;
+        });
+      }
+    } catch (e) {
+      print('Error recording: $e');
+    }
+  }
+
+  void stopRecording() async {
+    try {
+      String? path = await audioRecord.stop();
+      setState(() {
+        isRecording = false;
+        audioPath = path!;
+      });
+      String? newText = await speechToText(path!.substring(7));
+      setState(() {
+        convertedText = newText;
+      });
+    } catch (e) {
+      print('Error stopping recorder $e');
+    }
   }
 }
